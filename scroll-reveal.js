@@ -58,6 +58,16 @@ export class ScrollReveal {
   }
 }
 
+function getRevealDirection(el) {
+  const rect = el.getBoundingClientRect();
+  const cx = rect.left + rect.width / 2;
+  const vw = window.innerWidth;
+  const fraction = cx / vw;
+  if (fraction < 0.38) return 'left';
+  if (fraction > 0.62) return 'right';
+  return 'up';
+}
+
 /**
  * Automatically tags key layout items with .reveal-init and initializes ScrollReveal
  */
@@ -66,6 +76,8 @@ export function initScrollReveal(options = {}) {
   const defaultTargets = [
     '.section-header',
     '.product-section-header',
+    '.product-section-heading',
+    '.product-section-sub',
     '.accordion-gallery-wrapper',
     '.product-tabs-nav',
     '.product-showcase-grid > *',
@@ -114,11 +126,27 @@ export function initScrollReveal(options = {}) {
           // Row-based stagger: 0ms, 75ms, 150ms, 225ms
           const stagger = (index % 4) * (options.staggerDelay || 75);
           el.style.transitionDelay = `${stagger}ms`;
-          el.setAttribute('data-reveal', 'scale');
-        } else if (el.classList.contains('section-header') || el.classList.contains('product-section-header')) {
+          el.setAttribute('data-reveal', getRevealDirection(el));
+        } else if (
+          el.classList.contains('section-header') || 
+          el.classList.contains('product-section-header') ||
+          el.classList.contains('product-section-heading') ||
+          el.classList.contains('product-section-sub')
+        ) {
           el.setAttribute('data-reveal', 'up');
         } else if (el.classList.contains('product-cta-banner') || el.classList.contains('banner-sizes-cta-box')) {
           el.setAttribute('data-reveal', 'scale');
+        } else if (
+          el.classList.contains('about-image') ||
+          el.classList.contains('about-content') ||
+          el.classList.contains('location-info-card') ||
+          el.classList.contains('contact-info-panel') ||
+          el.classList.contains('contact-form-glass-wrap') ||
+          el.classList.contains('dome-gallery-container')
+        ) {
+          el.setAttribute('data-reveal', getRevealDirection(el));
+        } else if (el.classList.contains('location-map-wrap')) {
+          el.setAttribute('data-reveal', 'fade');
         } else {
           el.setAttribute('data-reveal', 'up');
         }

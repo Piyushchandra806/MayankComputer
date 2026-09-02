@@ -17,9 +17,9 @@
   transform: translate3d(0, 36px, 0) scale(0.96) !important;
   filter: blur(4px) !important;
   transition:
-    opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1),
-    transform 0.9s cubic-bezier(0.16, 1, 0.3, 1),
-    filter 0.9s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    opacity 1.25s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 1.25s cubic-bezier(0.16, 1, 0.3, 1),
+    filter 1.25s cubic-bezier(0.16, 1, 0.3, 1) !important;
   will-change: opacity, transform, filter;
   pointer-events: none !important;
 }
@@ -31,6 +31,31 @@
   transform: translate3d(0, 32px, 0) scale(1) !important;
   filter: blur(3px) !important;
 }
+
+/* Left-entry: starts offset to the LEFT */
+.reveal-init[data-reveal="left"] {
+  transform: translate3d(-60px, 0, 0) scale(1) !important;
+  filter: blur(4px) !important;
+}
+
+/* Right-entry: starts offset to the RIGHT */
+.reveal-init[data-reveal="right"] {
+  transform: translate3d(60px, 0, 0) scale(1) !important;
+  filter: blur(4px) !important;
+}
+
+/* Fade-entry: no movement, just opacity and blur */
+.reveal-init[data-reveal="fade"] {
+  transform: none !important;
+  filter: blur(4px) !important;
+}
+
+/* Mobile: reduce horizontal movement to prevent overflow */
+@media (max-width: 768px) {
+  .reveal-init[data-reveal="left"]  { transform: translate3d(-28px, 0, 0) scale(1) !important; }
+  .reveal-init[data-reveal="right"] { transform: translate3d(28px, 0, 0) scale(1) !important; }
+}
+
 
 /* 2. Revealed State with Complete Transition Governance */
 .reveal-init.is-revealed,
@@ -47,9 +72,9 @@
   filter: blur(0) !important;
   pointer-events: auto !important;
   transition:
-    opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1),
-    transform 0.9s cubic-bezier(0.16, 1, 0.3, 1),
-    filter 0.9s cubic-bezier(0.16, 1, 0.3, 1),
+    opacity 1.25s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 1.25s cubic-bezier(0.16, 1, 0.3, 1),
+    filter 1.25s cubic-bezier(0.16, 1, 0.3, 1),
     border-color 0.35s ease,
     box-shadow 0.35s ease,
     background 0.35s ease !important;
