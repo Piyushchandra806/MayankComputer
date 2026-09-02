@@ -1,0 +1,13 @@
+/**
+ * LightRays Component Styles - React Bits
+ */
+
+.light-rays-container {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}

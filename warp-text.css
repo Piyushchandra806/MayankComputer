@@ -1,0 +1,27 @@
+/**
+ * WarpText CSS - React Bits Component
+ * Interactive WebGL Liquid Glass Warping Headline
+ */
+
+.warp-text-container {
+  position: relative;
+  display: block;
+  width: 100%;
+  min-height: 240px;
+  height: clamp(220px, 32vw, 360px);
+  overflow: hidden;
+  isolation: isolate;
+  border-radius: inherit;
+  margin: 0 auto 20px;
+  mask-image: linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%);
+}
+
+.warp-text-container canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  cursor: crosshair;
+}

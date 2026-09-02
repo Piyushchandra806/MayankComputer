@@ -1,0 +1,844 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mayank Computer</title>
+    
+    <!-- FOUC Prevention & Scroll Reset: set theme and reset scroll before paint -->
+    <script>
+        if ('scrollRestoration' in history) {
+            history.scrollRestoration = 'manual';
+        }
+        window.scrollTo(0, 0);
+        (function() {
+            const stored = localStorage.getItem('theme');
+            const theme = stored || (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+            document.documentElement.setAttribute('data-theme', theme);
+        })();
+    </script>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Averia+Serif+Libre:wght@700&family=Inter:wght@400;500;600&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+    
+    <!-- Leaflet Maps CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="border-glow.css?v=1">
+    <link rel="stylesheet" href="styles.css?v=3">
+    <link rel="stylesheet" href="theme-toggle.css?v=1">
+    <link rel="stylesheet" href="scroll-expand.css?v=3">
+    <link rel="stylesheet" href="light-rays.css?v=1">
+    <link rel="stylesheet" href="accordion-gallery.css?v=1">
+    <link rel="stylesheet" href="pixelate-hover.css?v=3">
+    <link rel="stylesheet" href="warp-text.css">
+    <link rel="stylesheet" href="contact-glass.css?v=6">
+    <link rel="stylesheet" href="scroll-reveal.css?v=2">
+    
+    <!-- GSAP & Leaflet Engines -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+</head>
+<body>
+    
+    <!-- Header Section -->
+    <header class="navbar" id="navbar">
+        <div class="navbar-container">
+            <!-- Logo -->
+            <a href="#" class="logo">
+                <span class="logo-icon">MC</span>
+                <span class="logo-text">Mayank Computer</span>
+            </a>
+            
+            <!-- Navigation Links -->
+            <nav class="nav-links" id="nav-links">
+                <a href="#work">Our Work</a>
+                
+                <!-- Products Dropdown -->
+                <div class="nav-item--dropdown">
+                    <button type="button" class="nav-dropdown-trigger" id="products-menu-trigger" aria-haspopup="true" aria-expanded="false">
+                        <span>Products</span>
+                        <svg class="chevron" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="2 4 6 8 10 4"></polyline>
+                        </svg>
+                    </button>
+                    <div class="nav-dropdown" id="products-dropdown-menu" role="menu" aria-labelledby="products-menu-trigger">
+                        <a href="/products/wedding-cards" role="menuitem">
+                            <span class="dd-icon">💍</span>
+                            <span class="dd-item-title">Shadi Card</span>
+                        </a>
+                        <a href="/products/posters" role="menuitem">
+                            <span class="dd-icon">🖼️</span>
+                            <span class="dd-item-title">Posters</span>
+                        </a>
+                        <div class="nav-dropdown-divider"></div>
+                        <a href="/#products" data-product="school-id-cards" role="menuitem">
+                            <span class="dd-icon">🎓</span>
+                            <span class="dd-item-title">School / ID Cards</span>
+                        </a>
+                        <a href="/#products" data-product="visiting-cards" role="menuitem">
+                            <span class="dd-icon">🪪</span>
+                            <span class="dd-item-title">Visiting Cards</span>
+                        </a>
+                        <a href="/#products" data-product="letterhead-printing" role="menuitem">
+                            <span class="dd-icon">📄</span>
+                            <span class="dd-item-title">Letterhead Printing</span>
+                        </a>
+                        <a href="/#products" data-product="photocopy-xerox" role="menuitem">
+                            <span class="dd-icon">📠</span>
+                            <span class="dd-item-title">Photocopy &amp; Xerox</span>
+                        </a>
+                    </div>
+                </div>
+
+                <a href="#services">Services</a>
+                <a href="#about">About</a>
+                <a href="#location">Location</a>
+                <a href="#contact" class="nav-link-contact">Contact</a>
+            </nav>
+            
+            <!-- Actions -->
+            <div class="nav-actions">
+                <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Toggle theme">
+                    <!-- Sun icon (shown in light mode) -->
+                    <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                    <!-- Moon icon (shown in dark mode) -->
+                    <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                </button>
+                <a href="#contact" class="btn btn-primary">Contact &rarr;</a>
+                <button class="mobile-toggle" id="mobile-toggle" aria-label="Toggle Menu">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="3" y1="12" x2="21" y2="12"></line>
+                        <line x1="3" y1="6" x2="21" y2="6"></line>
+                        <line x1="3" y1="18" x2="21" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Section 1 & 2: Hero with React Bits LightRays & ScrollExpand Effect -->
+        <section id="hero" class="hero-section">
+            <div id="hero-light-rays" class="light-rays-container"></div>
+            <div id="scroll-expand-hero"></div>
+        </section>
+
+        <!-- Section 3: Our Work – React Bits AccordionGallery -->
+        <section id="work" class="work-section">
+            <div class="section-container">
+                <div class="section-header">
+                    <span class="section-label">Our Work</span>
+                    <h2 class="section-title">Recent Prints</h2>
+                    <p class="section-subtitle">A look at invitations, cards, and large-format prints from our shop.</p>
+                </div>
+                <div id="accordion-gallery-container" class="accordion-gallery-wrapper"></div>
+            </div>
+        </section>
+
+        <!-- Section 4: Products Showcase with React Bits Pro 3D Card -->
+        <section id="products" class="products-section">
+            <!-- Giant Background Watermark -->
+            <div class="products-watermark" aria-hidden="true">PRINTING</div>
+
+            <!-- Circuit Traces Background SVG -->
+            <div class="products-circuit-bg" aria-hidden="true">
+                <svg class="products-circuit-svg" viewBox="0 0 1440 750" fill="none" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Left circuit traces in natural oceanic slate-teal glow -->
+                    <path d="M-40 220 L180 220 L260 300 L420 300" stroke="rgba(56, 140, 180, 0.28)" stroke-width="1.5" stroke-dasharray="4 4" />
+                    <circle cx="420" cy="300" r="4" fill="#38a0c8" />
+                    <circle cx="420" cy="300" r="10" fill="rgba(56, 140, 180, 0.18)" />
+                    
+                    <path d="M-40 460 L140 460 L220 540 L350 540" stroke="rgba(255, 255, 255, 0.14)" stroke-width="1.5" />
+                    <circle cx="350" cy="540" r="3.5" fill="#ffffff" />
+                    <circle cx="350" cy="540" r="8" fill="rgba(255, 255, 255, 0.14)" />
+
+                    <!-- Right circuit traces in natural oceanic slate-teal glow -->
+                    <path d="M1480 210 L1240 210 L1160 290 L1010 290" stroke="rgba(56, 140, 180, 0.28)" stroke-width="1.5" stroke-dasharray="4 4" />
+                    <circle cx="1010" cy="290" r="4" fill="#38a0c8" />
+                    <circle cx="1010" cy="290" r="10" fill="rgba(56, 140, 180, 0.18)" />
+
+                    <path d="M1480 480 L1280 480 L1200 560 L1070 560" stroke="rgba(255, 255, 255, 0.14)" stroke-width="1.5" />
+                    <circle cx="1070" cy="560" r="3.5" fill="#ffffff" />
+                </svg>
+            </div>
+
+            <div class="section-container">
+                <div class="section-header">
+                    <span class="section-label">Products</span>
+                    <h2 class="section-title">What We Print</h2>
+                    <p class="section-subtitle">Explore our signature print collections and custom finishes.</p>
+                </div>
+
+                <!-- Product Tabs Bar -->
+                <div class="product-tabs-nav" role="tablist">
+                    <button class="product-tab-btn active" data-tab="school-id-cards" role="tab" aria-selected="true">
+                        <span>🎓 School / ID Cards</span>
+                    </button>
+                    <button class="product-tab-btn" data-tab="wedding-cards" role="tab" aria-selected="false">
+                        <span>💍 Shadi Cards</span>
+                    </button>
+                    <button class="product-tab-btn" data-tab="visiting-cards" role="tab" aria-selected="false">
+                        <span>🪪 Visiting Cards</span>
+                    </button>
+                    <button class="product-tab-btn" data-tab="poster-printing" role="tab" aria-selected="false">
+                        <span>🖼️ Posters &amp; Flex</span>
+                    </button>
+                    <button class="product-tab-btn" data-tab="letterhead-printing" role="tab" aria-selected="false">
+                        <span>📄 Letterheads</span>
+                    </button>
+                    <button class="product-tab-btn" data-tab="photocopy-xerox" role="tab" aria-selected="false">
+                        <span>📠 Photocopy &amp; Xerox</span>
+                    </button>
+                </div>
+
+                <!-- Product Panels -->
+                <div class="product-panels">
+                    
+                    <!-- Panel 1: School / ID Cards (Interactive 3D Lanyard) -->
+                    <div class="product-panel active" id="panel-school-id-cards" role="tabpanel">
+                        <div class="product-showcase-grid">
+                            <div class="card-showcase-wrapper">
+                                <div class="lanyard-showcase-container" id="lanyard-container" aria-label="Interactive 3D Hanging Lanyard ID Badge">
+                                    <div class="lanyard-badge-hint">Drag badge to swing 3D lanyard</div>
+                                </div>
+                            </div>
+                            <div class="product-details-col">
+                                <div class="product-details-header">
+                                    <h3 class="product-details-title">PVC ID Cards &amp; Custom Lanyards</h3>
+                                    <p class="product-details-desc">
+                                        Durable, waterproof 760-micron solid PVC cards with custom printed satin lanyards, barcode / RFID encoding, and fast turnaround for schools, colleges, and staff.
+                                    </p>
+                                </div>
+                                <div class="product-pills-row">
+                                    <span class="prod-pill">✨ Solid 760μ PVC</span>
+                                    <span class="prod-pill">⚡ Barcode &amp; RFID</span>
+                                    <span class="prod-pill">🎀 Custom Satin Lanyard</span>
+                                    <span class="prod-pill">📦 Bulk School Orders</span>
+                                </div>
+                                <div class="product-cta-actions">
+                                    <a href="#contact" class="btn btn-primary">Get School ID Quote &rarr;</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Panel 2: Shadi Cards (Interactive 3D Luxury Wedding Card) -->
+                    <div class="product-panel" id="panel-wedding-cards" role="tabpanel">
+                        <div class="product-showcase-grid">
+                            <div class="card-showcase-wrapper">
+                                <div class="card-scene" aria-label="Interactive 3D Luxury Wedding Card">
+                                    <div class="card-3d">
+                                        <div class="card-face card-face--foil">
+                                            <img src="wedding-card-showcase.jpg" alt="Luxury Royal Shadi Wedding Card" class="card-img-texture">
+                                            <div class="card-gloss"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-ambient-glow card-ambient-glow--gold"></div>
+                                <div class="card-hint-text">Hover &amp; drag to view 3D gold sheen</div>
+                            </div>
+                            <div class="product-details-col">
+                                <div class="product-details-header">
+                                    <h3 class="product-details-title">Royal Wedding &amp; Shadi Cards</h3>
+                                    <p class="product-details-desc">
+                                        Bespoke wedding invitation suites crafted on premium metallic cardstock with rich gold foil stamping, laser die-cut patterns, and elegant boxed sets.
+                                    </p>
+                                </div>
+                                <div class="product-pills-row">
+                                    <span class="prod-pill">✨ Gold Foil Stamping</span>
+                                    <span class="prod-pill">✂️ Laser Die-Cut</span>
+                                    <span class="prod-pill">👑 Boxed Suites</span>
+                                    <span class="prod-pill">💌 Multi-Fold Inserts</span>
+                                </div>
+                                <div class="product-cta-actions">
+                                    <a href="/products/wedding-cards" class="btn btn-primary">Explore Shadi Collection &rarr;</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Panel 3: Visiting Cards (Interactive 3D Flip Card) -->
+                    <div class="product-panel" id="panel-visiting-cards" role="tabpanel">
+                        <div class="product-showcase-grid">
+                            <div class="card-showcase-wrapper">
+                                <div class="card-scene" id="card-3d-scene" aria-label="Interactive 3D Visiting Card with Parallax Tilt">
+                                    <div class="card-3d" id="main-3d-card">
+                                        <div class="card-face card-face--front">
+                                            <img src="card-front.jpg" alt="Luxury Gold Visiting Card Front" class="card-img-texture">
+                                            <div class="card-gloss" id="card-gloss-layer"></div>
+                                        </div>
+                                        <div class="card-face card-face--back">
+                                            <img src="card-back.jpg" alt="Luxury Black &amp; Gold Visiting Card Back" class="card-img-texture">
+                                            <div class="card-gloss"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-ambient-glow"></div>
+                                <div class="card-controls">
+                                    <button type="button" class="card-flip-btn" id="card-flip-action">
+                                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/></svg>
+                                        <span>Flip Card</span>
+                                    </button>
+                                </div>
+                                <div class="card-hint-text">Hover to tilt · Click button to flip</div>
+                            </div>
+                            <div class="product-details-col">
+                                <div class="product-details-header">
+                                    <h3 class="product-details-title">Luxury Visiting &amp; Business Cards</h3>
+                                    <p class="product-details-desc">
+                                        Sharp, high-impact business cards printed on ultra-heavy 350–400 GSM cardstock with velvet matte, spot UV, gold foil, and optional smart NFC.
+                                    </p>
+                                </div>
+                                <div class="product-pills-row">
+                                    <span class="prod-pill">💎 350–400 GSM Art Card</span>
+                                    <span class="prod-pill">✨ Velvet &amp; Matte</span>
+                                    <span class="prod-pill">🌟 Gold / Silver Foil</span>
+                                    <span class="prod-pill">📲 Smart NFC Chip</span>
+                                </div>
+                                <div class="product-cta-actions">
+                                    <a href="#contact" class="btn btn-primary">Order Visiting Cards &rarr;</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Panel 4: Posters & Large Format Flex -->
+                    <div class="product-panel" id="panel-poster-printing" role="tabpanel">
+                        <div class="product-showcase-grid">
+                            <div class="card-showcase-wrapper">
+                                <div class="card-scene" aria-label="Interactive 3D Large Format Poster">
+                                    <div class="card-3d">
+                                        <div class="card-face">
+                                            <img src="poster-art-showcase.jpg" alt="Large Format Poster &amp; Flex Banner Showcase" class="card-img-texture">
+                                            <div class="card-gloss"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-ambient-glow card-ambient-glow--cyan"></div>
+                                <div class="card-hint-text">Hover &amp; drag to view 3D poster tilt</div>
+                            </div>
+                            <div class="product-details-col">
+                                <div class="product-details-header">
+                                    <h3 class="product-details-title">Posters &amp; Flex Banners</h3>
+                                    <p class="product-details-desc">
+                                        Vibrant large-format posters, vinyl stickers, and weather-resistant flex banners printed with 12-color archival inks in high definition for shop hoardings and events.
+                                    </p>
+                                </div>
+                                <div class="product-pills-row">
+                                    <span class="prod-pill">🎨 12-Color HD Inks</span>
+                                    <span class="prod-pill">🌧️ Weatherproof Star Flex</span>
+                                    <span class="prod-pill">📐 Custom Sizes (A3 to 20ft)</span>
+                                    <span class="prod-pill">⚡ Same-Day Available</span>
+                                </div>
+                                <div class="product-cta-actions">
+                                    <a href="/products/posters" class="btn btn-primary">View Posters &amp; Banners &rarr;</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Panel 5: Letterheads -->
+                    <div class="product-panel" id="panel-letterhead-printing" role="tabpanel">
+                        <div class="product-showcase-grid">
+                            <div class="card-showcase-wrapper">
+                                <div class="card-scene" aria-label="Interactive 3D Executive Letterhead">
+                                    <div class="card-3d">
+                                        <div class="card-face">
+                                            <img src="letterhead-showcase.jpg" alt="Executive Letterhead &amp; Corporate Stationery" class="card-img-texture">
+                                            <div class="card-gloss"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-ambient-glow card-ambient-glow--slate"></div>
+                                <div class="card-hint-text">Hover &amp; drag to view 3D stationery tilt</div>
+                            </div>
+                            <div class="product-details-col">
+                                <div class="product-details-header">
+                                    <h3 class="product-details-title">Letterheads &amp; Corporate Stationery</h3>
+                                    <p class="product-details-desc">
+                                        Professional executive bond letterheads and branded envelopes, fully compatible with desktop laser and inkjet printers for clean daily correspondence.
+                                    </p>
+                                </div>
+                                <div class="product-pills-row">
+                                    <span class="prod-pill">📄 100 &amp; 120 GSM Bond</span>
+                                    <span class="prod-pill">🖨️ Laser &amp; Inkjet Safe</span>
+                                    <span class="prod-pill">✉️ Matching Envelopes</span>
+                                    <span class="prod-pill">📋 A4 &amp; Legal</span>
+                                </div>
+                                <div class="product-cta-actions">
+                                    <a href="#contact" class="btn btn-primary">Order Office Stationery &rarr;</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Panel 6: Photocopy & Xerox -->
+                    <div class="product-panel" id="panel-photocopy-xerox" role="tabpanel">
+                        <div class="product-showcase-grid">
+                            <div class="card-showcase-wrapper">
+                                <div class="card-scene" aria-label="Interactive 3D Photocopy & Binding">
+                                    <div class="card-3d">
+                                        <div class="card-face">
+                                            <img src="print-production-showcase.jpg" alt="Digital Photocopy, Scan &amp; Binding Services" class="card-img-texture">
+                                            <div class="card-gloss"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-ambient-glow card-ambient-glow--teal"></div>
+                                <div class="card-hint-text">Hover &amp; drag to view 3D print tilt</div>
+                            </div>
+                            <div class="product-details-col">
+                                <div class="product-details-header">
+                                    <h3 class="product-details-title">Photocopy, Print &amp; Binding</h3>
+                                    <p class="product-details-desc">
+                                        High-speed B&amp;W and vivid color photocopying, HD document scanning to PDF/Email, and professional spiral, wiro, or hardcover binding while you wait.
+                                    </p>
+                                </div>
+                                <div class="product-pills-row">
+                                    <span class="prod-pill">⚡ Instant Counter Service</span>
+                                    <span class="prod-pill">📚 Spiral &amp; Hardcover</span>
+                                    <span class="prod-pill">📑 B&amp;W and Color Copies</span>
+                                    <span class="prod-pill">🛡️ Heavy Copier Paper</span>
+                                </div>
+                                <div class="product-cta-actions">
+                                    <a href="#contact" class="btn btn-primary">Visit Our Counter &rarr;</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 5: Services -->
+        <section id="services" class="services-section">
+            <!-- Giant Background Watermark -->
+            <div class="services-watermark" aria-hidden="true">SERVICES</div>
+
+            <!-- Circuit Traces Background SVG -->
+            <div class="services-circuit-bg" aria-hidden="true">
+                <svg class="services-circuit-svg" viewBox="0 0 1440 650" fill="none" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Left circuit traces in violet glow -->
+                    <path d="M-40 180 L160 180 L240 260 L380 260" stroke="rgba(168, 85, 247, 0.3)" stroke-width="1.5" stroke-dasharray="4 4" />
+                    <circle cx="380" cy="260" r="4" fill="#a855f7" />
+                    <circle cx="380" cy="260" r="10" fill="rgba(168, 85, 247, 0.2)" />
+                    
+                    <path d="M-40 340 L110 340 L190 420 L310 420" stroke="rgba(255, 255, 255, 0.15)" stroke-width="1.5" />
+                    <circle cx="310" cy="420" r="3.5" fill="#ffffff" />
+                    <circle cx="310" cy="420" r="8" fill="rgba(255, 255, 255, 0.15)" />
+
+                    <!-- Right circuit traces in violet glow -->
+                    <path d="M1480 190 L1260 190 L1180 270 L1040 270" stroke="rgba(168, 85, 247, 0.3)" stroke-width="1.5" stroke-dasharray="4 4" />
+                    <circle cx="1040" cy="270" r="4" fill="#a855f7" />
+                    <circle cx="1040" cy="270" r="10" fill="rgba(168, 85, 247, 0.2)" />
+
+                    <path d="M1480 360 L1300 360 L1220 440 L1100 440" stroke="rgba(255, 255, 255, 0.15)" stroke-width="1.5" />
+                    <circle cx="1100" cy="440" r="3.5" fill="#ffffff" />
+                    <circle cx="1100" cy="440" r="8" fill="rgba(255, 255, 255, 0.15)" />
+                </svg>
+            </div>
+
+            <div class="section-container">
+                <div class="section-header section-header--left">
+                    <span class="section-label">Services</span>
+                    <h2 class="section-title">What We Do</h2>
+                    <p class="section-subtitle section-subtitle--left">Quality printing, fast turnaround, and friendly counter service.</p>
+                </div>
+
+                <div class="services-grid">
+                    <!-- Card 1: School / ID Cards -->
+                    <div class="service-card" tabindex="0" data-target-product="school-id-cards">
+                        <div class="service-card__header">
+                            <span class="service-card__tag">ID — 04</span>
+                            <span class="service-card__stamp"><span>Mayank Press</span></span>
+                        </div>
+                        <h3 class="service-card__title">School / ID Cards</h3>
+                        <p class="service-card__desc">Durable PVC ID cards with custom branded lanyards.</p>
+                    </div>
+
+                    <!-- Card 2: Shadi Cards -->
+                    <div class="service-card" tabindex="0" data-target-product="wedding-cards">
+                        <div class="service-card__header">
+                            <span class="service-card__tag">WC — 01</span>
+                            <span class="service-card__stamp"><span>Mayank Press</span></span>
+                        </div>
+                        <h3 class="service-card__title">Shadi Cards</h3>
+                        <p class="service-card__desc">Custom wedding invitations, from traditional to modern styles.</p>
+                    </div>
+
+                    <!-- Card 3: Visiting Cards -->
+                    <div class="service-card" tabindex="0" data-target-product="visiting-cards">
+                        <div class="service-card__header">
+                            <span class="service-card__tag">VC — 03</span>
+                            <span class="service-card__stamp"><span>Mayank Press</span></span>
+                        </div>
+                        <h3 class="service-card__title">Visiting Cards</h3>
+                        <p class="service-card__desc">Sharp, professional cards with matte, gloss, or foil finishes.</p>
+                    </div>
+
+                    <!-- Card 4: Poster Printing -->
+                    <div class="service-card" tabindex="0" data-target-product="poster-printing">
+                        <div class="service-card__header">
+                            <span class="service-card__tag">PS — 02</span>
+                            <span class="service-card__stamp"><span>Mayank Press</span></span>
+                        </div>
+                        <h3 class="service-card__title">Poster Printing</h3>
+                        <p class="service-card__desc">Vibrant large-format posters and flex banners for events and shops.</p>
+                    </div>
+
+                    <!-- Card 5: Letterhead Printing -->
+                    <div class="service-card" tabindex="0" data-target-product="letterhead-printing">
+                        <div class="service-card__header">
+                            <span class="service-card__tag">LH — 05</span>
+                            <span class="service-card__stamp"><span>Mayank Press</span></span>
+                        </div>
+                        <h3 class="service-card__title">Letterhead Printing</h3>
+                        <p class="service-card__desc">Branded letterheads and envelopes for your business.</p>
+                    </div>
+
+                    <!-- Card 6: Photocopy & Xerox -->
+                    <div class="service-card" tabindex="0" data-target-product="photocopy-xerox">
+                        <div class="service-card__header">
+                            <span class="service-card__tag">XC — 06</span>
+                            <span class="service-card__stamp"><span>Mayank Press</span></span>
+                        </div>
+                        <h3 class="service-card__title">Photocopy &amp; Xerox</h3>
+                        <p class="service-card__desc">Quick black &amp; white or color copies, scanning, and binding.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 6: About Us -->
+        <section id="about" class="about-section">
+            <div class="section-container">
+                <div class="about-layout">
+                    <!-- Left: Pixelate Hover Image -->
+                    <div class="about-image" id="pixelate-container">
+                        <!-- Pixelate canvas injected by JS -->
+                    </div>
+
+                    <!-- Right: Bio -->
+                    <div class="about-content">
+                        <span class="section-label">About Us</span>
+                        <h2 class="section-title">Your local printing partner.</h2>
+                        <div class="about-bio">
+                            <p>Founded by <strong>Mr. Bhagwat Prasad Chandra</strong>, Mayank Computer has been providing quality printing and design services for over 10 years.</p>
+                            <p>From custom wedding cards and business stationery to posters and everyday photocopies, we handle every print job with care and reliability.</p>
+                        </div>
+                        <div class="about-stats">
+                            <div class="about-stat">
+                                <span class="about-stat__number" id="stat-years" data-countup-to="10" data-countup-suffix="+">0</span>
+                                <span class="about-stat__label">Years Experience</span>
+                            </div>
+                            <div class="about-stat">
+                                <span class="about-stat__number" id="stat-clients" data-countup-to="5" data-countup-suffix="K+">0</span>
+                                <span class="about-stat__label">Happy Clients</span>
+                            </div>
+                            <div class="about-stat">
+                                <span class="about-stat__number" id="stat-cards" data-countup-to="50" data-countup-suffix="K+">0</span>
+                                <span class="about-stat__label">Cards Printed</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 7: Visit Our Shop (MAYANK FLAX & PRINTING PRESS, Jaijaipur) — Apple Maps Styled -->
+        <section id="location" class="location-section">
+            <div class="section-container">
+                <div class="location-layout">
+                    <div class="location-info-card">
+                        <span class="section-label">Visit Our Shop</span>
+                        <h2 class="location-title">MAYANK FLAX &amp; PRINTING PRESS</h2>
+                        <div class="location-place-row">
+                            <span class="location-pin-icon" aria-hidden="true">📍</span>
+                            <span class="location-place-text">Jaijaipur</span>
+                        </div>
+                        <p class="location-subtitle">Find us in Jaijaipur.</p>
+                        <div class="location-actions">
+                            <a href="https://maps.apple/p/1CZtFLBp4FnFHZ" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-directions" id="btn-get-directions">
+                                <span>Get Directions</span>
+                                <span class="btn-arrow">&rarr;</span>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="location-map-wrap border-glow-card" id="shop-map-container">
+                        <div id="shop-leaflet-map" class="shop-map"></div>
+                        <div class="apple-place-chip">
+                            <span class="apple-chip-dot"></span>
+                            <div class="apple-chip-info">
+                                <span class="apple-chip-title">MAYANK FLAX &amp; PRINTING PRESS</span>
+                                <span class="apple-chip-sub">Printing &amp; Copy Service · Jaijaipur</span>
+                            </div>
+                            <a href="https://maps.apple/p/1CZtFLBp4FnFHZ" target="_blank" rel="noopener noreferrer" class="apple-chip-btn" title="Open in Maps">
+                                ↗
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 8: Ultra-Premium Glassmorphism Contact Section -->
+        <section id="contact" class="contact-glass-section">
+            <!-- Giant Background Watermark -->
+            <div class="contact-watermark" aria-hidden="true">CONTACT</div>
+
+            <!-- Circuit Traces Background SVG -->
+            <div class="contact-circuit-bg" aria-hidden="true">
+                <svg class="contact-circuit-svg" viewBox="0 0 1440 650" fill="none" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Left circuit traces -->
+                    <path d="M-40 180 L160 180 L240 260 L380 260" stroke="rgba(45, 180, 140, 0.3)" stroke-width="1.5" stroke-dasharray="4 4" />
+                    <circle cx="380" cy="260" r="4" fill="#2eb88a" />
+                    <circle cx="380" cy="260" r="10" fill="rgba(46, 184, 138, 0.2)" />
+                    
+                    <path d="M-40 340 L110 340 L190 420 L310 420" stroke="rgba(255, 255, 255, 0.15)" stroke-width="1.5" />
+                    <circle cx="310" cy="420" r="3.5" fill="#ffffff" />
+                    <circle cx="310" cy="420" r="8" fill="rgba(255, 255, 255, 0.15)" />
+
+                    <!-- Right circuit traces -->
+                    <path d="M1480 190 L1260 190 L1180 270 L1040 270" stroke="rgba(45, 180, 140, 0.3)" stroke-width="1.5" stroke-dasharray="4 4" />
+                    <circle cx="1040" cy="270" r="4" fill="#2eb88a" />
+                    <circle cx="1040" cy="270" r="10" fill="rgba(46, 184, 138, 0.2)" />
+
+                    <path d="M1480 360 L1300 360 L1220 440 L1100 440" stroke="rgba(255, 255, 255, 0.15)" stroke-width="1.5" />
+                    <circle cx="1100" cy="440" r="3.5" fill="#ffffff" />
+                    <circle cx="1100" cy="440" r="8" fill="rgba(255, 255, 255, 0.15)" />
+                </svg>
+            </div>
+
+            <div class="section-container">
+                <div class="contact-glass-grid">
+                    <!-- Left Column: Info & Direct Contacts -->
+                    <div class="contact-info-panel">
+                        <div class="contact-pill-badge">
+                            <svg class="contact-badge-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
+                                <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                            </svg>
+                            <span>Contact</span>
+                        </div>
+
+                        <h2 class="contact-main-heading">Get in touch</h2>
+                        <p class="contact-subtext">Have questions or ready to place your order with Mayank Flax &amp; Printing Press?</p>
+
+                        <div class="contact-cards-stack">
+                            <!-- Card 1: Calling (Calling Numbers: +91 97545 21645 & +91 99810 68812) -->
+                            <div class="contact-card-glass contact-card-calling">
+                                <div class="calling-card-header">
+                                    <div class="contact-card-icon-box">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                                            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                                        </svg>
+                                    </div>
+                                    <div class="contact-card-details">
+                                        <span class="contact-card-label">Call us directly</span>
+                                        <span class="contact-card-value">Mon – Sun · 8:00 AM – 9:00 PM</span>
+                                    </div>
+                                </div>
+                                <div class="calling-numbers-grid">
+                                    <a href="tel:+919754521645" class="phone-pill-btn">
+                                        <span>📞 +91 97545 21645</span>
+                                    </a>
+                                    <a href="tel:+919981068812" class="phone-pill-btn">
+                                        <span>📞 +91 99810 68812</span>
+                                    </a>
+                                </div>
+                            </div>
+
+                            <!-- Card 3: Email (Direct Gmail Compose) -->
+                            <a href="https://mail.google.com/mail/?view=cm&fs=1&to=mayank.computer9@gmail.com&su=Printing%20Inquiry%20%E2%80%93%20Mayank%20Computer&body=Hi%20Mayank%20Computer%2C%0A%0AI%20would%20like%20to%20inquire%20about%20your%20printing%20services." target="_blank" rel="noopener noreferrer" class="contact-card-glass">
+                                <div class="contact-card-left">
+                                    <div class="contact-card-icon-box">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                                            <rect x="2" y="4" width="20" height="16" rx="3"></rect>
+                                            <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
+                                        </svg>
+                                    </div>
+                                    <div class="contact-card-details">
+                                        <span class="contact-card-label">Email us</span>
+                                        <span class="contact-card-value">mayank.computer9@gmail.com</span>
+                                    </div>
+                                </div>
+                                <div class="contact-card-action">↗</div>
+                            </a>
+
+                            <!-- Card 4: Location -->
+                            <a href="https://maps.apple/p/1CZtFLBp4FnFHZ" target="_blank" rel="noopener noreferrer" class="contact-card-glass">
+                                <div class="contact-card-left">
+                                    <div class="contact-card-icon-box">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                                            <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"></path>
+                                            <circle cx="12" cy="10" r="3"></circle>
+                                        </svg>
+                                    </div>
+                                    <div class="contact-card-details">
+                                        <span class="contact-card-label">Our location</span>
+                                        <span class="contact-card-value">Jaijaipur, Chhattisgarh, India</span>
+                                    </div>
+                                </div>
+                                <div class="contact-card-action">↗</div>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Right Column: Interactive Translucent Glass Form -->
+                    <div class="contact-form-glass-wrap">
+                        <div class="form-header-badge">💬 Instant WhatsApp / Email</div>
+                        <h3 class="contact-form-title">Send a Quick Inquiry</h3>
+                        <p class="contact-form-desc">Select a category and get an instant quote directly on WhatsApp or Email.</p>
+
+                        <!-- Service Category Chips -->
+                        <div class="form-service-section-label">Select Service / Topic</div>
+                        <div class="form-service-chips" id="form-service-chips">
+                            <button type="button" class="service-choice-chip active" data-service="Shadi / Wedding Cards">💍 Shadi Cards</button>
+                            <button type="button" class="service-choice-chip" data-service="Flex &amp; Poster Printing">🖼️ Flex / Posters</button>
+                            <button type="button" class="service-choice-chip" data-service="School &amp; PVC ID Cards">🪪 ID Cards</button>
+                            <button type="button" class="service-choice-chip" data-service="Visiting Cards">💼 Visiting Cards</button>
+                            <button type="button" class="service-choice-chip" data-service="Letterhead &amp; Stationery">📄 Letterhead</button>
+                            <button type="button" class="service-choice-chip" data-service="General Printing Query">✨ Other</button>
+                        </div>
+
+                        <form class="contact-glass-form" id="contact-glass-form">
+                            <input type="text" id="contact-name" class="contact-glass-input" name="name" placeholder="Your Name" required />
+                            <input type="text" id="contact-email" class="contact-glass-input" name="email" placeholder="Phone or Email (Optional)" />
+                            <textarea id="contact-message" class="contact-glass-textarea" name="message" placeholder="Describe your printing requirements, quantity, or questions..." required></textarea>
+                            
+                            <div class="contact-form-actions">
+                                <button type="button" id="btn-whatsapp-chat" class="btn-form-whatsapp">
+                                    <svg viewBox="0 0 24 24" fill="currentColor">
+                                        <path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0 0 12.04 2zm.01 1.67c2.2 0 4.26.86 5.82 2.42a8.176 8.176 0 0 1 2.41 5.82c0 4.54-3.7 8.24-8.24 8.24-1.45 0-2.88-.38-4.13-1.11l-.3-.18-3.07.81.82-2.99-.19-.31a8.188 8.188 0 0 1-1.26-4.45c0-4.54 3.7-8.24 8.24-8.24zm4.51 11.66c-.25-.13-1.47-.72-1.7-.81-.23-.08-.39-.13-.56.13-.17.25-.64.81-.79.97-.14.17-.29.19-.54.06-.25-.13-1.06-.39-2.02-1.24-.75-.67-1.25-1.49-1.4-1.74-.14-.25-.02-.39.11-.51.11-.11.25-.29.37-.43.13-.15.17-.25.25-.42.08-.17.04-.31-.02-.44-.06-.13-.56-1.35-.77-1.85-.2-.49-.41-.42-.56-.43l-.48-.01c-.17 0-.44.06-.67.31-.23.25-.88.86-.88 2.1 0 1.24.9 2.44 1.03 2.61.13.17 1.77 2.7 4.29 3.79.6.26 1.07.41 1.43.53.6.19 1.15.16 1.58.1.48-.07 1.47-.6 1.68-1.18.21-.58.21-1.08.15-1.18-.07-.1-.23-.16-.48-.28z"/>
+                                    </svg>
+                                    <span>Send via WhatsApp (+91 81090 97729)</span>
+                                </button>
+                                <button type="submit" class="btn-form-submit">
+                                    <span>Submit via Email</span>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Section 8: Premium "Thank You" Liquid Warp Footer (React Bits WarpText) -->
+    <footer class="thankyou-footer" id="footer">
+        <div class="thankyou-warp-wrapper">
+            <div id="thankyou-warp-text" class="warp-text-container" role="img" aria-label="Thank you"></div>
+        </div>
+
+        <div class="thankyou-footer-bottom">
+            <div class="section-container thankyou-footer-inner">
+                <div class="thankyou-brand">
+                    <span class="footer-brand-title">Mayank Computer</span>
+                    <span class="footer-brand-sub">Jaijaipur, Chhattisgarh</span>
+                </div>
+                <div class="thankyou-copyright">
+                    <p>&copy; 2026 Mayank Computer. All Rights Reserved.</p>
+                </div>
+                <div class="thankyou-backtop">
+                    <a href="#hero" class="btn-backtop" aria-label="Back to top">
+                        <span>Back to top</span>
+                        <span class="backtop-arrow">&uarr;</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Interactive Floating WhatsApp Assistant Widget -->
+    <div class="wa-floating-widget" id="wa-floating-widget">
+        <div class="wa-floating-pill">Need quick help? Chat on WhatsApp 👋</div>
+        
+        <!-- Popup Chat Window -->
+        <div class="wa-chat-popup" id="wa-chat-popup">
+            <div class="wa-chat-header">
+                <div class="wa-header-left">
+                    <div class="wa-header-avatar">MC</div>
+                    <div class="wa-header-info">
+                        <span class="wa-header-title">Mayank Computer</span>
+                        <span class="wa-header-status"><span class="wa-online-dot"></span> Online · Replies in &lt; 5m</span>
+                    </div>
+                </div>
+                <button type="button" class="wa-chat-close" id="wa-chat-close" aria-label="Close WhatsApp chat">&times;</button>
+            </div>
+            
+            <div class="wa-chat-body">
+                <div class="wa-message-bubble">
+                    Namaste! 🙏 Welcome to Mayank Computer. How can we help you with your printing needs today?
+                    <div class="wa-message-time">Just now</div>
+                </div>
+                
+                <div class="wa-quick-options-title">त्वरित पूछताछ (Quick Inquiries):</div>
+                <div class="wa-quick-btn-list">
+                    <button type="button" class="wa-quick-btn" data-text="नमस्ते मयंक कंप्यूटर! 🙏 मुझे शादी कार्ड (Wedding Cards) के नए डिज़ाइन, सैंपल और रेट लिस्ट की जानकारी चाहिए।">
+                        <span>💍 शादी कार्ड डिज़ाइन व रेट (Wedding Cards)</span>
+                        <span>→</span>
+                    </button>
+                    <button type="button" class="wa-quick-btn" data-text="नमस्ते मयंक कंप्यूटर! 🙏 मुझे फ्लेक्स बैनर / पोस्टर (Flex &amp; Poster Printing) के साइज और रेट जानने हैं।">
+                        <span>🖼️ फ्लेक्स / पोस्टर प्रिंटिंग (Flex &amp; Posters)</span>
+                        <span>→</span>
+                    </button>
+                    <button type="button" class="wa-quick-btn" data-text="नमस्ते मयंक कंप्यूटर! 🙏 मुझे स्कूल/कॉलेज पीवीसी आईडी कार्ड या विज़िटिंग कार्ड (PVC ID &amp; Visiting Cards) प्रिंट कराने हैं।">
+                        <span>🪪 स्कूल आईडी व विज़िटिंग कार्ड (ID &amp; Visiting Cards)</span>
+                        <span>→</span>
+                    </button>
+                    <button type="button" class="wa-quick-btn" data-text="नमस्ते मयंक कंप्यूटर! 🙏 मुझे प्रिंटिंग कार्य के लिए कोटेशन व जानकारी चाहिए। कृपया संपर्क करें।">
+                        <span>💬 कस्टम प्रिंटिंग कोटेशन (Custom Quote)</span>
+                        <span>→</span>
+                    </button>
+                </div>
+            </div>
+            
+            <div class="wa-chat-footer">
+                <input type="text" class="wa-custom-input" id="wa-custom-input" placeholder="Type your message..." />
+                <button type="button" class="wa-custom-send-btn" id="wa-custom-send-btn" aria-label="Send on WhatsApp">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="22" y1="2" x2="11" y2="13"></line>
+                        <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Floating Trigger Button -->
+        <button type="button" class="wa-floating-trigger" id="wa-floating-trigger" aria-label="Open WhatsApp Chat">
+            <div class="wa-trigger-pulse"></div>
+            <svg class="wa-icon-whatsapp" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0 0 12.04 2zm.01 1.67c2.2 0 4.26.86 5.82 2.42a8.176 8.176 0 0 1 2.41 5.82c0 4.54-3.7 8.24-8.24 8.24-1.45 0-2.88-.38-4.13-1.11l-.3-.18-3.07.81.82-2.99-.19-.31a8.188 8.188 0 0 1-1.26-4.45c0-4.54 3.7-8.24 8.24-8.24zm4.51 11.66c-.25-.13-1.47-.72-1.7-.81-.23-.08-.39-.13-.56.13-.17.25-.64.81-.79.97-.14.17-.29.19-.54.06-.25-.13-1.06-.39-2.02-1.24-.75-.67-1.25-1.49-1.4-1.74-.14-.25-.02-.39.11-.51.11-.11.25-.29.37-.43.13-.15.17-.25.25-.42.08-.17.04-.31-.02-.44-.06-.13-.56-1.35-.77-1.85-.2-.49-.41-.42-.56-.43l-.48-.01c-.17 0-.44.06-.67.31-.23.25-.88.86-.88 2.1 0 1.24.9 2.44 1.03 2.61.13.17 1.77 2.7 4.29 3.79.6.26 1.07.41 1.43.53.6.19 1.15.16 1.58.1.48-.07 1.47-.6 1.68-1.18.21-.58.21-1.08.15-1.18-.07-.1-.23-.16-.48-.28z"/>
+            </svg>
+            <span class="wa-icon-close">&times;</span>
+        </button>
+    </div>
+
+    <!-- Scripts -->
+    <script type="module" src="script.js?v=4"></script>
+</body>
+</html>

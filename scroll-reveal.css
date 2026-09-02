@@ -1,0 +1,84 @@
+/* =========================================
+   ScrollReveal System - Premium Scroll-Triggered Animations
+   Ultra-Smooth, Seamless Reveals Across All Card Grids & Sections
+   ========================================= */
+
+/* 1. Base Unrevealed State with High Specificity */
+.reveal-init,
+[class*="-grid"] > .reveal-init,
+.reveal-init.service-card,
+.reveal-init.feature-card,
+.reveal-init.design-item,
+.reveal-init.banner-size-card,
+.reveal-init.guide-box,
+.reveal-init.about-stat,
+.reveal-init.border-glow-card {
+  opacity: 0 !important;
+  transform: translate3d(0, 36px, 0) scale(0.96) !important;
+  filter: blur(4px) !important;
+  transition:
+    opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.9s cubic-bezier(0.16, 1, 0.3, 1),
+    filter 0.9s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  will-change: opacity, transform, filter;
+  pointer-events: none !important;
+}
+
+/* Headings and Section Headers (Slide Up) */
+.reveal-init.section-header,
+.reveal-init.product-section-header,
+.reveal-init[data-reveal="up"] {
+  transform: translate3d(0, 32px, 0) scale(1) !important;
+  filter: blur(3px) !important;
+}
+
+/* 2. Revealed State with Complete Transition Governance */
+.reveal-init.is-revealed,
+[class*="-grid"] > .reveal-init.is-revealed,
+.reveal-init.is-revealed.service-card,
+.reveal-init.is-revealed.feature-card,
+.reveal-init.is-revealed.design-item,
+.reveal-init.is-revealed.banner-size-card,
+.reveal-init.is-revealed.guide-box,
+.reveal-init.is-revealed.about-stat,
+.reveal-init.is-revealed.border-glow-card {
+  opacity: 1 !important;
+  transform: translate3d(0, 0, 0) scale(1) !important;
+  filter: blur(0) !important;
+  pointer-events: auto !important;
+  transition:
+    opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.9s cubic-bezier(0.16, 1, 0.3, 1),
+    filter 0.9s cubic-bezier(0.16, 1, 0.3, 1),
+    border-color 0.35s ease,
+    box-shadow 0.35s ease,
+    background 0.35s ease !important;
+}
+
+/* 3. Smooth Card Hover Transformations Once Revealed */
+.banner-size-card.is-revealed:hover,
+.design-item.is-revealed:hover,
+.service-card.is-revealed:hover,
+.feature-card.is-revealed:hover,
+.guide-box.is-revealed:hover,
+.about-stat.is-revealed:hover {
+  transform: translateY(-8px) scale(1) !important;
+  transition:
+    transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.35s ease,
+    border-color 0.35s ease,
+    background 0.35s ease !important;
+}
+
+/* Accessibility: Respect prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+  .reveal-init,
+  .reveal-init.is-revealed,
+  [class*="-grid"] > .reveal-init {
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+    transition: none !important;
+    pointer-events: auto !important;
+  }
+}

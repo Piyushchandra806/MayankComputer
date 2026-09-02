@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Poster Printing &amp; Large-Format Designs – Mayank Computer</title>
+  <meta name="description" content="High-impact posters, promotional banners, event placards, and artistic prints printed with 12-color archival inks in vibrant resolutions.">
+  
+  <!-- FOUC Prevention & Scroll Reset: set theme and reset scroll before paint -->
+  <script>
+    if ('scrollRestoration' in history) {
+      history.scrollRestoration = 'manual';
+    }
+    window.scrollTo(0, 0);
+    (function() {
+      const stored = localStorage.getItem('theme');
+      const theme = stored || (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+      document.documentElement.setAttribute('data-theme', theme);
+    })();
+  </script>
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Styles -->
+  <link rel="stylesheet" href="/border-glow.css">
+  <link rel="stylesheet" href="/product-page.css">
+  <link rel="stylesheet" href="/theme-toggle.css?v=1">
+  <link rel="stylesheet" href="/scroll-stack.css">
+  <link rel="stylesheet" href="/side-rays.css">
+  <link rel="stylesheet" href="/scroll-reveal.css">
+
+  <!-- GSAP Animation Engine -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+</head>
+<body>
+
+  <!-- Navigation Header (Consistent with main website) -->
+  <header class="navbar" id="navbar">
+    <div class="navbar-container">
+      <a href="/" class="logo">
+        <span class="logo-icon">MC</span>
+        <span class="logo-text">Mayank Computer</span>
+      </a>
+      
+      <nav class="nav-links" id="nav-links">
+        <a href="/#work">Our Work</a>
+        
+        <!-- Products Dropdown -->
+        <div class="nav-item--dropdown">
+          <button type="button" class="nav-dropdown-trigger" aria-haspopup="true" aria-expanded="false">
+            <span>Products</span>
+            <svg class="chevron" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="2 4 6 8 10 4"/>
+            </svg>
+          </button>
+          <div class="nav-dropdown" role="menu">
+            <a href="/products/wedding-cards" role="menuitem">
+              <span class="dd-icon">💍</span>
+              <span class="dd-item-title">Shadi Card</span>
+            </a>
+            <a href="/products/posters" class="active" role="menuitem">
+              <span class="dd-icon">🖼️</span>
+              <span class="dd-item-title">Posters</span>
+            </a>
+            <div class="nav-dropdown-divider"></div>
+            <a href="/#products" data-product="school-id-cards" role="menuitem">
+              <span class="dd-icon">🎓</span>
+              <span class="dd-item-title">School / ID Cards</span>
+            </a>
+            <a href="/#products" data-product="visiting-cards" role="menuitem">
+              <span class="dd-icon">🪪</span>
+              <span class="dd-item-title">Visiting Cards</span>
+            </a>
+            <a href="/#products" data-product="letterhead-printing" role="menuitem">
+              <span class="dd-icon">📄</span>
+              <span class="dd-item-title">Letterhead Printing</span>
+            </a>
+            <a href="/#products" data-product="photocopy-xerox" role="menuitem">
+              <span class="dd-icon">📠</span>
+              <span class="dd-item-title">Photocopy &amp; Xerox</span>
+            </a>
+          </div>
+        </div>
+
+        <a href="/#services">Services</a>
+        <a href="/#about">About</a>
+        <a href="/#location">Location</a>
+        <a href="/#contact" class="nav-link-contact">Contact</a>
+      </nav>
+
+      <div class="nav-actions">
+        <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Toggle theme">
+          <!-- Sun icon (shown in light mode) -->
+          <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="5"></circle>
+            <line x1="12" y1="1" x2="12" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line>
+            <line x1="21" y1="12" x2="23" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+          </svg>
+          <!-- Moon icon (shown in dark mode) -->
+          <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+          </svg>
+        </button>
+        <a href="/#contact" class="btn btn-primary">Contact &rarr;</a>
+        <button class="mobile-toggle" id="mobile-toggle" aria-label="Toggle Menu">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main>
+    <!-- Hero Section -->
+    <section class="product-hero">
+      <div class="side-rays-container" id="hero-side-rays"></div>
+      <div class="breadcrumb">
+        <a href="/">Home</a>
+        <span class="sep">›</span>
+        <a href="/#services">Products</a>
+        <span class="sep">›</span>
+        <span>Posters</span>
+      </div>
+      
+      <span class="product-tag">Posters &amp; Banners</span>
+      <h1>Posters &amp; Large-Format Prints</h1>
+      <p class="hero-desc">
+        Vibrant posters, event banners, art prints, and outdoor vinyl flex in custom sizes.
+      </p>
+      
+      <div class="hero-cta-row">
+        <a href="/#contact" class="btn btn-primary">Contact Us &rarr;</a>
+        <a href="#banner-sizes" class="btn-outline">Banner Sizes ↓</a>
+      </div>
+    </section>
+
+    <!-- Body & Gallery Section -->
+    <div class="product-body" id="designs-catalogue">
+      
+      <!-- Key Features Highlights -->
+      <div class="feature-grid">
+        <div class="feature-card">
+          <span class="feat-icon">🎨</span>
+          <h3>Archival Pigment Inks</h3>
+          <p>Vivid colors and deep blacks that resist fading.</p>
+        </div>
+        <div class="feature-card">
+          <span class="feat-icon">📐</span>
+          <h3>Custom Sizes</h3>
+          <p>From A4 flyers to large 10×20 ft outdoor banners.</p>
+        </div>
+        <div class="feature-card">
+          <span class="feat-icon">⚡</span>
+          <h3>Fast Turnaround</h3>
+          <p>Quick printing for events, promotions, and shop displays.</p>
+        </div>
+      </div>
+
+      <!-- React Bits Pro: Pinned Scroll Stack Showcase -->
+      <section class="scroll-stack-section" id="poster-scroll-stack-section">
+        <div class="scroll-stack-track" id="poster-scroll-stack">
+          <div class="scroll-stack-sticky">
+            <div class="scroll-stack-viewport">
+              
+              <!-- Card 01 / 07 -->
+              <div class="scroll-stack-card">
+                <div class="scroll-stack-card-bg">
+                  <img src="https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=1600&q=85" alt="Grand Festival and Cultural Posters" loading="eager" />
+                  <div class="scroll-stack-card-overlay"></div>
+                </div>
+                <div class="scroll-stack-card-header">
+                  <span class="scroll-stack-index-tag">01/07</span>
+                </div>
+                <div class="scroll-stack-card-content">
+                  <span class="scroll-stack-category-tag">01. FESTIVAL &amp; EVENTS</span>
+                  <h2 class="scroll-stack-card-title">Festival &amp; Event Posters</h2>
+                  <p class="scroll-stack-card-desc">High-contrast prints for pandals, cultural fests, and announcements.</p>
+                  <div class="scroll-stack-card-actions">
+                    <a href="/#contact" class="btn btn-primary">Order Prints &rarr;</a>
+                    <a href="#banner-sizes" class="btn-outline">View Sizes ↓</a>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Card 02 / 07 -->
+              <div class="scroll-stack-card">
+                <div class="scroll-stack-card-bg">
+                  <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1600&q=85" alt="Swiss Typography and Fine Art Posters" loading="lazy" />
+                  <div class="scroll-stack-card-overlay"></div>
+                </div>
+                <div class="scroll-stack-card-header">
+                  <span class="scroll-stack-index-tag">02/07</span>
+                </div>
+                <div class="scroll-stack-card-content">
+                  <span class="scroll-stack-category-tag">02. ART &amp; MINIMAL</span>
+                  <h2 class="scroll-stack-card-title">Art &amp; Typography Prints</h2>
+                  <p class="scroll-stack-card-desc">Clean museum-quality art and typography prints on premium heavy matte paper.</p>
+                  <div class="scroll-stack-card-actions">
+                    <a href="/#contact" class="btn btn-primary">Order Prints &rarr;</a>
+                    <a href="#banner-sizes" class="btn-outline">View Sizes ↓</a>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Card 03 / 07 -->
+              <div class="scroll-stack-card">
+                <div class="scroll-stack-card-bg">
+                  <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1600&q=85" alt="Midnight Music and Tour Posters" loading="lazy" />
+                  <div class="scroll-stack-card-overlay"></div>
+                </div>
+                <div class="scroll-stack-card-header">
+                  <span class="scroll-stack-index-tag">03/07</span>
+                </div>
+                <div class="scroll-stack-card-content">
+                  <span class="scroll-stack-category-tag">03. CONCERTS &amp; GIGS</span>
+                  <h2 class="scroll-stack-card-title">Music &amp; Concert Posters</h2>
+                  <p class="scroll-stack-card-desc">Vibrant, high-saturation posters on 300 GSM luster paper.</p>
+                  <div class="scroll-stack-card-actions">
+                    <a href="/#contact" class="btn btn-primary">Order Prints &rarr;</a>
+                    <a href="#banner-sizes" class="btn-outline">View Sizes ↓</a>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Card 04 / 07 -->
+              <div class="scroll-stack-card">
+                <div class="scroll-stack-card-bg">
+                  <img src="https://images.unsplash.com/photo-1555421689-491a97ff2040?auto=format&fit=crop&w=1600&q=85" alt="Mega Retail Sales and Signages" loading="lazy" />
+                  <div class="scroll-stack-card-overlay"></div>
+                </div>
+                <div class="scroll-stack-card-header">
+                  <span class="scroll-stack-index-tag">04/07</span>
+                </div>
+                <div class="scroll-stack-card-content">
+                  <span class="scroll-stack-category-tag">04. RETAIL &amp; SALES</span>
+                  <h2 class="scroll-stack-card-title">Retail &amp; Storefront Signs</h2>
+                  <p class="scroll-stack-card-desc">Bold sale banners and promotional posters to drive foot traffic.</p>
+                  <div class="scroll-stack-card-actions">
+                    <a href="/#contact" class="btn btn-primary">Order Prints &rarr;</a>
+                    <a href="#banner-sizes" class="btn-outline">View Sizes ↓</a>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Card 05 / 07 -->
+              <div class="scroll-stack-card">
+                <div class="scroll-stack-card-bg">
+                  <img src="https://images.unsplash.com/photo-1506157786151-b8491531f063?auto=format&fit=crop&w=1600&q=85" alt="Outdoor Weatherproof Flex Banners" loading="lazy" />
+                  <div class="scroll-stack-card-overlay"></div>
+                </div>
+                <div class="scroll-stack-card-header">
+                  <span class="scroll-stack-index-tag">05/07</span>
+                </div>
+                <div class="scroll-stack-card-content">
+                  <span class="scroll-stack-category-tag">05. OUTDOOR FLEX</span>
+                  <h2 class="scroll-stack-card-title">Weatherproof Flex Banners</h2>
+                  <p class="scroll-stack-card-desc">Durable vinyl flex with reinforced seams and brass eyelets for outdoor display.</p>
+                  <div class="scroll-stack-card-actions">
+                    <a href="/#contact" class="btn btn-primary">Order Prints &rarr;</a>
+                    <a href="#banner-sizes" class="btn-outline">View Sizes ↓</a>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Card 06 / 07 -->
+              <div class="scroll-stack-card">
+                <div class="scroll-stack-card-bg">
+                  <img src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&w=1600&q=85" alt="Corporate Summit and Conference Keynote Posters" loading="lazy" />
+                  <div class="scroll-stack-card-overlay"></div>
+                </div>
+                <div class="scroll-stack-card-header">
+                  <span class="scroll-stack-index-tag">06/07</span>
+                </div>
+                <div class="scroll-stack-card-content">
+                  <span class="scroll-stack-category-tag">06. CONFERENCES</span>
+                  <h2 class="scroll-stack-card-title">Conference &amp; Stage Backdrops</h2>
+                  <p class="scroll-stack-card-desc">Satin anti-glare backdrops and roll-up standees for meetings and events.</p>
+                  <div class="scroll-stack-card-actions">
+                    <a href="/#contact" class="btn btn-primary">Order Prints &rarr;</a>
+                    <a href="#banner-sizes" class="btn-outline">View Sizes ↓</a>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Card 07 / 07 -->
+              <div class="scroll-stack-card">
+                <div class="scroll-stack-card-bg">
+                  <img src="https://images.unsplash.com/photo-1579783900882-c0d3dad7b119?auto=format&fit=crop&w=1600&q=85" alt="Fine Art & Museum Gallery Canvas Editions" loading="lazy" />
+                  <div class="scroll-stack-card-overlay"></div>
+                </div>
+                <div class="scroll-stack-card-header">
+                  <span class="scroll-stack-index-tag">07/07</span>
+                </div>
+                <div class="scroll-stack-card-content">
+                  <span class="scroll-stack-category-tag">07. CANVAS PRINTS</span>
+                  <h2 class="scroll-stack-card-title">Cotton Canvas Prints</h2>
+                  <p class="scroll-stack-card-desc">Archival pigment prints on 380 GSM textured cotton canvas.</p>
+                  <div class="scroll-stack-card-actions">
+                    <a href="/#contact" class="btn btn-primary">Order Prints &rarr;</a>
+                    <a href="#banner-sizes" class="btn-outline">View Sizes ↓</a>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+            <!-- Bottom Progress Line Bar & Counter -->
+            <div class="scroll-stack-progress-wrap">
+              <div class="scroll-stack-progress-track">
+                <div class="scroll-stack-progress-bar" id="scroll-stack-progress-fill"></div>
+              </div>
+              <span class="scroll-stack-progress-text" id="scroll-stack-progress-counter">01 / 07</span>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      <!-- Banner Sizes Visual Grid Section -->
+      <section class="banner-sizes-section" id="banner-sizes">
+        <div class="product-section-header" style="margin-bottom: 24px;">
+          <h2 class="product-section-heading">Banner Sizes</h2>
+          <p class="product-section-sub">Standard sizes for shop boards, backdrops, and event hoardings.</p>
+        </div>
+
+        <div class="banner-sizes-grid">
+          <!-- Size 1: 3 × 4 ft -->
+          <div class="banner-size-card">
+            <div class="banner-preview-stage">
+              <div class="banner-canvas banner-ratio-3-4" aria-label="3 by 4 ft Small Banner preview">
+                <img src="https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=800&q=80" alt="3x4 ft Festive Celebration Banner" class="banner-canvas-img" loading="lazy" />
+                <div class="banner-canvas-overlay"></div>
+                <span class="grommet top-left"></span>
+                <span class="grommet top-right"></span>
+                <span class="grommet bottom-left"></span>
+                <span class="grommet bottom-right"></span>
+                <span class="banner-canvas-badge">3 : 4</span>
+              </div>
+            </div>
+            <div class="banner-size-info">
+              <h3 class="banner-size-title">3 × 4 ft</h3>
+              <span class="banner-size-inches">36 × 48 in</span>
+              <span class="banner-size-type">Small Banner</span>
+            </div>
+            <div class="banner-size-actions">
+              <a href="/#contact" class="btn-card-order">Order 3 × 4 ft &rarr;</a>
+            </div>
+          </div>
+
+          <!-- Size 2: 4 × 6 ft -->
+          <div class="banner-size-card">
+            <div class="banner-preview-stage">
+              <div class="banner-canvas banner-ratio-4-6" aria-label="4 by 6 ft Event and Shop Banner preview">
+                <img src="https://images.unsplash.com/photo-1555421689-491a97ff2040?auto=format&fit=crop&w=800&q=80" alt="4x6 ft Retail Storefront Banner" class="banner-canvas-img" loading="lazy" />
+                <div class="banner-canvas-overlay"></div>
+                <span class="grommet top-left"></span>
+                <span class="grommet top-right"></span>
+                <span class="grommet bottom-left"></span>
+                <span class="grommet bottom-right"></span>
+                <span class="banner-canvas-badge">2 : 3</span>
+              </div>
+            </div>
+            <div class="banner-size-info">
+              <h3 class="banner-size-title">4 × 6 ft</h3>
+              <span class="banner-size-inches">48 × 72 in</span>
+              <span class="banner-size-type">Event / Shop</span>
+            </div>
+            <div class="banner-size-actions">
+              <a href="/#contact" class="btn-card-order">Order 4 × 6 ft &rarr;</a>
+            </div>
+          </div>
+
+          <!-- Size 3: 4 × 8 ft -->
+          <div class="banner-size-card">
+            <div class="banner-preview-stage">
+              <div class="banner-canvas banner-ratio-4-8" aria-label="4 by 8 ft Advertising Display Banner preview">
+                <img src="https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=1200&q=80" alt="4x8 ft Advertising Campaign Banner" class="banner-canvas-img" loading="lazy" />
+                <div class="banner-canvas-overlay"></div>
+                <span class="grommet top-left"></span>
+                <span class="grommet top-right"></span>
+                <span class="grommet bottom-left"></span>
+                <span class="grommet bottom-right"></span>
+                <span class="banner-canvas-badge">1 : 2</span>
+              </div>
+            </div>
+            <div class="banner-size-info">
+              <h3 class="banner-size-title">4 × 8 ft</h3>
+              <span class="banner-size-inches">48 × 96 in</span>
+              <span class="banner-size-type">Advertising</span>
+            </div>
+            <div class="banner-size-actions">
+              <a href="/#contact" class="btn-card-order">Order 4 × 8 ft &rarr;</a>
+            </div>
+          </div>
+
+          <!-- Size 4: 5 × 10 ft -->
+          <div class="banner-size-card">
+            <div class="banner-preview-stage">
+              <div class="banner-canvas banner-ratio-5-10" aria-label="5 by 10 ft Large Event Banner preview">
+                <img src="https://images.unsplash.com/photo-1470225620780-dba8ba36b745?auto=format&fit=crop&w=1200&q=80" alt="5x10 ft Concert and Live Music Banner" class="banner-canvas-img" loading="lazy" />
+                <div class="banner-canvas-overlay"></div>
+                <span class="grommet top-left"></span>
+                <span class="grommet top-right"></span>
+                <span class="grommet bottom-left"></span>
+                <span class="grommet bottom-right"></span>
+                <span class="banner-canvas-badge">1 : 2</span>
+              </div>
+            </div>
+            <div class="banner-size-info">
+              <h3 class="banner-size-title">5 × 10 ft</h3>
+              <span class="banner-size-inches">60 × 120 in</span>
+              <span class="banner-size-type">Large Event</span>
+            </div>
+            <div class="banner-size-actions">
+              <a href="/#contact" class="btn-card-order">Order 5 × 10 ft &rarr;</a>
+            </div>
+          </div>
+
+          <!-- Size 5: 6 × 10 ft -->
+          <div class="banner-size-card">
+            <div class="banner-preview-stage">
+              <div class="banner-canvas banner-ratio-6-10" aria-label="6 by 10 ft Stage and Event Banner preview">
+                <img src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&w=1200&q=80" alt="6x10 ft Conference Keynote Stage Backdrop" class="banner-canvas-img" loading="lazy" />
+                <div class="banner-canvas-overlay"></div>
+                <span class="grommet top-left"></span>
+                <span class="grommet top-right"></span>
+                <span class="grommet bottom-left"></span>
+                <span class="grommet bottom-right"></span>
+                <span class="banner-canvas-badge">3 : 5</span>
+              </div>
+            </div>
+            <div class="banner-size-info">
+              <h3 class="banner-size-title">6 × 10 ft</h3>
+              <span class="banner-size-inches">72 × 120 in</span>
+              <span class="banner-size-type">Stage / Event</span>
+            </div>
+            <div class="banner-size-actions">
+              <a href="/#contact" class="btn-card-order">Order 6 × 10 ft &rarr;</a>
+            </div>
+          </div>
+
+          <!-- Size 6: 8 × 12 ft -->
+          <div class="banner-size-card">
+            <div class="banner-preview-stage">
+              <div class="banner-canvas banner-ratio-8-12" aria-label="8 by 12 ft Large Stage Backdrop preview">
+                <img src="https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1200&q=80" alt="8x12 ft Gala Banquet Stage Backdrop" class="banner-canvas-img" loading="lazy" />
+                <div class="banner-canvas-overlay"></div>
+                <span class="grommet top-left"></span>
+                <span class="grommet top-right"></span>
+                <span class="grommet bottom-left"></span>
+                <span class="grommet bottom-right"></span>
+                <span class="banner-canvas-badge">2 : 3</span>
+              </div>
+            </div>
+            <div class="banner-size-info">
+              <h3 class="banner-size-title">8 × 12 ft</h3>
+              <span class="banner-size-inches">96 × 144 in</span>
+              <span class="banner-size-type">Stage Backdrop</span>
+            </div>
+            <div class="banner-size-actions">
+              <a href="/#contact" class="btn-card-order">Order 8 × 12 ft &rarr;</a>
+            </div>
+          </div>
+
+          <!-- Size 7: 10 × 12 ft -->
+          <div class="banner-size-card">
+            <div class="banner-preview-stage">
+              <div class="banner-canvas banner-ratio-10-12" aria-label="10 by 12 ft Stage Backdrop preview">
+                <img src="https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&w=1200&q=80" alt="10x12 ft Exhibition Booth Backdrop" class="banner-canvas-img" loading="lazy" />
+                <div class="banner-canvas-overlay"></div>
+                <span class="grommet top-left"></span>
+                <span class="grommet top-right"></span>
+                <span class="grommet bottom-left"></span>
+                <span class="grommet bottom-right"></span>
+                <span class="banner-canvas-badge">5 : 6</span>
+              </div>
+            </div>
+            <div class="banner-size-info">
+              <h3 class="banner-size-title">10 × 12 ft</h3>
+              <span class="banner-size-inches">120 × 144 in</span>
+              <span class="banner-size-type">Large Backdrop</span>
+            </div>
+            <div class="banner-size-actions">
+              <a href="/#contact" class="btn-card-order">Order 10 × 12 ft &rarr;</a>
+            </div>
+          </div>
+
+          <!-- Size 8: 10 × 20 ft -->
+          <div class="banner-size-card">
+            <div class="banner-preview-stage">
+              <div class="banner-canvas banner-ratio-10-20" aria-label="10 by 20 ft Large Outdoor Advertising preview">
+                <img src="https://images.unsplash.com/photo-1506157786151-b8491531f063?auto=format&fit=crop&w=1600&q=80" alt="10x20 ft Large Outdoor Highway Flex Banner" class="banner-canvas-img" loading="lazy" />
+                <div class="banner-canvas-overlay"></div>
+                <span class="grommet top-left"></span>
+                <span class="grommet top-right"></span>
+                <span class="grommet bottom-left"></span>
+                <span class="grommet bottom-right"></span>
+                <span class="banner-canvas-badge">1 : 2</span>
+              </div>
+            </div>
+            <div class="banner-size-info">
+              <h3 class="banner-size-title">10 × 20 ft</h3>
+              <span class="banner-size-inches">120 × 240 in</span>
+              <span class="banner-size-type">Outdoor Banner</span>
+            </div>
+            <div class="banner-size-actions">
+              <a href="/#contact" class="btn-card-order">Order 10 × 20 ft &rarr;</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Custom Size CTA Box -->
+        <div class="banner-sizes-cta-box">
+          <div class="banner-sizes-cta-content">
+            <span class="banner-sizes-cta-label">Need a custom size?</span>
+            <p class="banner-sizes-cta-desc">We print banners in any custom dimension with reinforced edges and brass eyelets.</p>
+          </div>
+          <a href="/#contact" class="btn btn-primary">Get Custom Size &rarr;</a>
+        </div>
+      </section>
+
+      <!-- Media & Size Guide Section -->
+      <section class="guide-section">
+        <h2 class="product-section-heading">Print Materials &amp; Sizes</h2>
+        <p class="product-section-sub">Choose the right material for your indoor or outdoor display.</p>
+
+        <div class="guides-grid">
+          <div class="guide-box">
+            <h4>✨ Gloss Photo Paper</h4>
+            <p>High optical shine, great for photos and gig posters.</p>
+          </div>
+          <div class="guide-box">
+            <h4>🛡️ Matte Paper</h4>
+            <p>Non-reflective finish, ideal for indoor displays and art prints.</p>
+          </div>
+          <div class="guide-box">
+            <h4>🌧️ Vinyl Flex</h4>
+            <p>Waterproof and weatherproof banner material with brass eyelets.</p>
+          </div>
+          <div class="guide-box">
+            <h4>📏 Standard Sizes</h4>
+            <p>A4, A3, A2, A1, A0, and wide rolls up to 10 ft width.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Bottom Order CTA Banner -->
+      <div class="product-cta-banner">
+        <h2>Print Your Posters &amp; Banners</h2>
+        <p>Bring your file or let us create a custom layout for your event or shop.</p>
+        <div class="cta-buttons-wrap">
+          <a href="/#contact" class="btn btn-primary">Contact Us &rarr;</a>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Quick Preview Modal Dialog -->
+  <div class="preview-modal-backdrop" id="preview-modal" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="preview-modal-dialog">
+      <button type="button" class="modal-close-btn" id="modal-close" aria-label="Close Preview">&times;</button>
+      <div class="modal-img-wrap">
+        <img id="modal-img" src="" alt="Poster Design Preview">
+      </div>
+      <div class="modal-details-wrap">
+        <div class="design-meta" style="margin-bottom: 12px;">
+          <span class="design-code" id="modal-code">PS-00</span>
+          <span class="design-price-tag" id="modal-price">Custom Order</span>
+        </div>
+        <h3 class="design-title" id="modal-title" style="font-size: 22px; margin-bottom: 12px;">Poster Title</h3>
+        <p class="design-desc" id="modal-desc" style="font-size: 14px; margin-bottom: 20px;">Poster description</p>
+        <div class="design-specs-list" id="modal-specs" style="margin-bottom: 28px;"></div>
+        <div style="margin-top: auto; display: flex; gap: 12px;">
+          <a href="/#contact" id="modal-order-btn" class="btn btn-primary" style="flex: 1; text-align: center;">Order This Design &rarr;</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="product-footer">
+    <p>&copy; 2026 <a href="/">Mayank Computer</a> · Quality Press &amp; Digital Solutions</p>
+    <a href="/#contact">Contact Counter</a>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="/products-gallery.js"></script>
+  <script type="module">
+    import { ScrollStack } from '/scroll-stack.js';
+    import { SideRays } from '/side-rays.js';
+    import { initThemeToggle } from '/theme-toggle.js';
+    import { initBorderGlow } from '/border-glow.js';
+    import { initScrollReveal } from '/scroll-reveal.js';
+
+    // Reset scroll on reload
+    if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+    window.addEventListener('beforeunload', () => window.scrollTo(0, 0));
+    window.addEventListener('pageshow', () => {
+      if (window.location.hash) history.replaceState(null, null, window.location.pathname + window.location.search);
+      window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+    });
+
+    document.addEventListener('DOMContentLoaded', () => {
+      if (window.location.hash) history.replaceState(null, null, window.location.pathname + window.location.search);
+      window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+      document.documentElement.scrollTop = 0;
+      document.body.scrollTop = 0;
+
+      initThemeToggle();
+      initBorderGlow();
+      initScrollReveal();
+
+      // 1. Initialize React Bits Pro ScrollStack
+      const scrollStackEl = document.getElementById('poster-scroll-stack');
+      if (scrollStackEl) {
+        new ScrollStack(scrollStackEl, {
+          scrollDistancePerCard: window.innerHeight * 0.9,
+          stackYOffset: 16,
+          stackScaleOffset: 0.04
+        });
+      }
+
+      // 3. SideRays animated background
+      const raysEl = document.getElementById('hero-side-rays');
+      if (raysEl) {
+        new SideRays(raysEl, {
+          speed: 2.5,
+          rayColor1: '#EAB308',
+          rayColor2: '#96c8ff',
+          intensity: 2,
+          spread: 2,
+          origin: 'top-right',
+          tilt: 0,
+          saturation: 1.5,
+          blend: 0.75,
+          falloff: 1.6,
+          opacity: 1.0
+        });
+      }
+    });
+  </script>
+</body>
+</html>

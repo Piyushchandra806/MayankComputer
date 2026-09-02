@@ -1,0 +1,282 @@
+/**
+ * DomeGallery CSS - React Bits Component
+ * 3D Spherical Interactive Dome Gallery
+ */
+
+.dome-gallery-section {
+  position: relative;
+  width: 100%;
+  padding: 60px 0 80px;
+  overflow: hidden;
+}
+
+.dome-gallery-container {
+  position: relative;
+  width: 100%;
+  height: clamp(550px, 75vh, 850px);
+  border-radius: 28px;
+  overflow: hidden;
+  background: var(--bg-primary, #0d0a12);
+  border: 1px solid var(--border-subtle, rgba(255, 255, 255, 0.08));
+}
+
+.sphere-root {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  --radius: 560px;
+  --viewer-pad: 72px;
+  --circ: calc(var(--radius) * 3.14159);
+  --rot-y: calc((360deg / var(--segments-x, 35)) / 2);
+  --rot-x: calc((360deg / var(--segments-y, 35)) / 2);
+  --item-width: calc(var(--circ) / var(--segments-x, 35));
+  --item-height: calc(var(--circ) / var(--segments-y, 35));
+  --overlay-blur-color: #0d0a12;
+  --tile-radius: 28px;
+  --enlarge-radius: 28px;
+  --image-filter: none;
+}
+
+[data-theme="light"] .sphere-root {
+  --overlay-blur-color: #f8fafc;
+}
+
+.sphere-root * {
+  box-sizing: border-box;
+}
+
+.sphere,
+.item,
+.item__image {
+  transform-style: preserve-3d;
+}
+
+main.sphere-main {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+  background: transparent;
+  cursor: grab;
+}
+
+main.sphere-main:active {
+  cursor: grabbing;
+}
+
+.stage {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  place-items: center;
+  perspective: calc(var(--radius) * 2);
+  perspective-origin: 50% 50%;
+  contain: layout paint size;
+}
+
+.sphere {
+  transform: translateZ(calc(var(--radius) * -1));
+  will-change: transform;
+}
+
+.overlay,
+.overlay--blur {
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  z-index: 3;
+  pointer-events: none;
+}
+
+.overlay {
+  background-image: radial-gradient(rgba(235, 235, 235, 0) 65%, var(--overlay-blur-color, #0d0a12) 100%);
+}
+
+.overlay--blur {
+  -webkit-mask-image: radial-gradient(rgba(235, 235, 235, 0) 70%, var(--overlay-blur-color, #0d0a12) 90%);
+  mask-image: radial-gradient(rgba(235, 235, 235, 0) 70%, var(--overlay-blur-color, #0d0a12) 90%);
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
+}
+
+.item {
+  width: calc(var(--item-width) * var(--item-size-x, 2));
+  height: calc(var(--item-height) * var(--item-size-y, 2));
+  position: absolute;
+  top: -999px;
+  bottom: -999px;
+  left: -999px;
+  right: -999px;
+  margin: auto;
+  transform-origin: 50% 50%;
+  backface-visibility: hidden;
+  transition: transform 300ms;
+  transform: rotateY(calc(var(--rot-y) * (var(--offset-x) + ((var(--item-size-x, 2) - 1) / 2)) + var(--rot-y-delta, 0deg)))
+    rotateX(calc(var(--rot-x) * (var(--offset-y) - ((var(--item-size-y, 2) - 1) / 2)) + var(--rot-x-delta, 0deg)))
+    translateZ(var(--radius));
+}
+
+.item__image {
+  position: absolute;
+  display: block;
+  inset: 8px;
+  border-radius: var(--tile-radius, 28px);
+  background: var(--surface-card, #17131e);
+  border: 1px solid var(--border-subtle, rgba(255, 255, 255, 0.1));
+  overflow: hidden;
+  backface-visibility: hidden;
+  transition: transform 300ms cubic-bezier(0.16, 1, 0.3, 1), box-shadow 300ms ease;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+  pointer-events: auto;
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+}
+
+.item__image:hover {
+  transform: scale(1.04) translateZ(12px);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.45);
+}
+
+.item__image:focus {
+  outline: none;
+}
+
+.item__image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  pointer-events: none;
+  backface-visibility: hidden;
+  filter: var(--image-filter, none);
+  transition: transform 300ms ease;
+}
+
+.item__image:hover img {
+  transform: scale(1.03);
+}
+
+.viewer {
+  position: absolute;
+  inset: 0;
+  z-index: 20;
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--viewer-pad);
+}
+
+.viewer .frame {
+  height: 100%;
+  aspect-ratio: 1;
+  border-radius: var(--enlarge-radius, 28px);
+  display: flex;
+}
+
+@media (max-aspect-ratio: 1/1) {
+  .viewer .frame {
+    height: auto;
+    width: 100%;
+  }
+}
+
+.viewer .scrim {
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  background: rgba(0, 0, 0, 0.65);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 400ms ease;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.sphere-root[data-enlarging='true'] .viewer .scrim {
+  opacity: 1;
+  pointer-events: all;
+  cursor: zoom-out;
+}
+
+.viewer .enlarge {
+  position: absolute;
+  z-index: 30;
+  border-radius: var(--enlarge-radius, 28px);
+  overflow: hidden;
+  transition: transform 400ms cubic-bezier(0.16, 1, 0.3, 1), opacity 400ms ease;
+  transform-origin: top left;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+  border: 1px solid var(--border-medium, rgba(255, 255, 255, 0.2));
+}
+
+.viewer .enlarge img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: none;
+}
+
+.sphere-root .enlarge-closing img {
+  filter: none;
+}
+
+.edge-fade {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 120px;
+  z-index: 5;
+  pointer-events: none;
+  background: linear-gradient(to bottom, transparent, var(--overlay-blur-color, #0d0a12));
+}
+
+.edge-fade--top {
+  top: 0;
+  transform: rotate(180deg);
+}
+
+.edge-fade--bottom {
+  bottom: 0;
+}
+
+/* Floating interactive hint badge */
+.dome-hint-badge {
+  position: absolute;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 8;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 18px;
+  border-radius: 100px;
+  background: rgba(18, 15, 23, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: var(--text-secondary, #a1a1aa);
+  font-size: 13px;
+  font-weight: 500;
+  pointer-events: none;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+  transition: opacity 0.3s ease;
+}
+
+[data-theme="light"] .dome-hint-badge {
+  background: rgba(255, 255, 255, 0.9);
+  border-color: rgba(0, 0, 0, 0.1);
+  color: #555;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+}
+
+.dome-hint-icon {
+  font-size: 14px;
+}

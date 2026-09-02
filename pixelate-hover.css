@@ -1,0 +1,58 @@
+/* =========================================
+   PixelateHover Component CSS
+   ========================================= */
+.pixelate-hover {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  border-radius: 20px;
+  cursor: crosshair;
+}
+
+.pixelate-hover__canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* "Hover to reveal" hint */
+.pixelate-hover__hint {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border-radius: 100px;
+  background: rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  pointer-events: none;
+  opacity: 1;
+  transition: opacity 0.5s ease, transform 0.5s ease;
+  z-index: 2;
+}
+
+.pixelate-hover__hint.is-hidden {
+  opacity: 0;
+  transform: translateX(-50%) translateY(8px);
+}
+
+.pixelate-hover__hint svg {
+  opacity: 0.7;
+  animation: hint-pulse 2s ease-in-out infinite;
+}
+
+@keyframes hint-pulse {
+  0%, 100% { opacity: 0.5; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.1); }
+}

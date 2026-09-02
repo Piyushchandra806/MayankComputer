@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bespoke Shadi Cards &amp; Wedding Invitations – Mayank Computer</title>
+  <meta name="description" content="Handcrafted wedding invitations, royal shaadi cards, laser-cut suites, and bespoke boxed farman cards printed with gold foil, velvet, and luxury cardstocks.">
+  
+  <!-- FOUC Prevention & Scroll Reset: set theme and reset scroll before paint -->
+  <script>
+    if ('scrollRestoration' in history) {
+      history.scrollRestoration = 'manual';
+    }
+    window.scrollTo(0, 0);
+    (function() {
+      const stored = localStorage.getItem('theme');
+      const theme = stored || (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+      document.documentElement.setAttribute('data-theme', theme);
+    })();
+  </script>
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Styles -->
+  <link rel="stylesheet" href="/border-glow.css">
+  <link rel="stylesheet" href="/product-page.css">
+  <link rel="stylesheet" href="/dome-gallery.css">
+  <link rel="stylesheet" href="/theme-toggle.css?v=1">
+  <link rel="stylesheet" href="/side-rays.css">
+  <link rel="stylesheet" href="/scroll-reveal.css">
+
+  <!-- GSAP Animation Engine -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+</head>
+<body>
+
+  <!-- Navigation Header (Consistent with main website) -->
+  <header class="navbar" id="navbar">
+    <div class="navbar-container">
+      <a href="/" class="logo">
+        <span class="logo-icon">MC</span>
+        <span class="logo-text">Mayank Computer</span>
+      </a>
+      
+      <nav class="nav-links" id="nav-links">
+        <a href="/#work">Our Work</a>
+        
+        <!-- Products Dropdown -->
+        <div class="nav-item--dropdown">
+          <button type="button" class="nav-dropdown-trigger" aria-haspopup="true" aria-expanded="false">
+            <span>Products</span>
+            <svg class="chevron" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="2 4 6 8 10 4"/>
+            </svg>
+          </button>
+          <div class="nav-dropdown" role="menu">
+            <a href="/products/wedding-cards" class="active" role="menuitem">
+              <span class="dd-icon">💍</span>
+              <span class="dd-item-title">Shadi Card</span>
+            </a>
+            <a href="/products/posters" role="menuitem">
+              <span class="dd-icon">🖼️</span>
+              <span class="dd-item-title">Posters</span>
+            </a>
+            <div class="nav-dropdown-divider"></div>
+            <a href="/#products" data-product="school-id-cards" role="menuitem">
+              <span class="dd-icon">🎓</span>
+              <span class="dd-item-title">School / ID Cards</span>
+            </a>
+            <a href="/#products" data-product="visiting-cards" role="menuitem">
+              <span class="dd-icon">🪪</span>
+              <span class="dd-item-title">Visiting Cards</span>
+            </a>
+            <a href="/#products" data-product="letterhead-printing" role="menuitem">
+              <span class="dd-icon">📄</span>
+              <span class="dd-item-title">Letterhead Printing</span>
+            </a>
+            <a href="/#products" data-product="photocopy-xerox" role="menuitem">
+              <span class="dd-icon">📠</span>
+              <span class="dd-item-title">Photocopy &amp; Xerox</span>
+            </a>
+          </div>
+        </div>
+
+        <a href="/#services">Services</a>
+        <a href="/#about">About</a>
+        <a href="/#location">Location</a>
+        <a href="/#contact" class="nav-link-contact">Contact</a>
+      </nav>
+
+      <div class="nav-actions">
+        <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Toggle theme">
+          <!-- Sun icon (shown in light mode) -->
+          <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="5"></circle>
+            <line x1="12" y1="1" x2="12" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line>
+            <line x1="21" y1="12" x2="23" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+          </svg>
+          <!-- Moon icon (shown in dark mode) -->
+          <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+          </svg>
+        </button>
+        <a href="/#contact" class="btn btn-primary">Contact &rarr;</a>
+        <button class="mobile-toggle" id="mobile-toggle" aria-label="Toggle Menu">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main>
+    <!-- Hero Section -->
+    <section class="product-hero">
+      <div class="side-rays-container" id="hero-side-rays"></div>
+      <div class="breadcrumb">
+        <a href="/">Home</a>
+        <span class="sep">›</span>
+        <a href="/#services">Products</a>
+        <span class="sep">›</span>
+        <span>Shadi Card</span>
+      </div>
+      
+      <span class="product-tag">Shadi Card</span>
+      <h1>Shadi Card &amp; Wedding Invitations</h1>
+      <p class="hero-desc">
+        Beautiful invitations for your special day — traditional, floral, laser-cut, and boxed card suites.
+      </p>
+      
+      <div class="hero-cta-row">
+        <a href="/#contact" class="btn btn-primary">Contact Us &rarr;</a>
+        <a href="#designs-catalogue" class="btn-outline">View Designs ↓</a>
+      </div>
+    </section>
+
+    <!-- Body & Gallery Section -->
+    <div class="product-body" id="designs-catalogue">
+      
+      <!-- Key Craftsmanship Highlights -->
+      <div class="feature-grid">
+        <div class="feature-card">
+          <span class="feat-icon">👑</span>
+          <h3>Hot Foil Stamping</h3>
+          <p>Gold, silver, and rose-gold foil pressed onto heavy cardstock.</p>
+        </div>
+        <div class="feature-card">
+          <span class="feat-icon">✨</span>
+          <h3>Laser Die-Cuts</h3>
+          <p>Clean geometric and floral gatefold cuts.</p>
+        </div>
+        <div class="feature-card">
+          <span class="feat-icon">📦</span>
+          <h3>Boxed &amp; Scroll Sets</h3>
+          <p>Rigid presentation boxes and traditional scroll cards.</p>
+        </div>
+      </div>
+
+      <!-- 3D Spherical Dome Gallery (React Bits Component) -->
+      <section class="dome-gallery-section" id="dome-gallery">
+        <div class="product-section-header" style="margin-bottom: 28px;">
+          <h2 class="product-section-heading">Card Designs</h2>
+          <p class="product-section-sub">Explore our handcrafted wedding suites in an interactive 3D dome. Drag to rotate and click any card to inspect.</p>
+        </div>
+
+        <div class="dome-gallery-container border-glow-card" id="wedding-dome-gallery">
+          <!-- Injected by DomeGallery JS -->
+        </div>
+      </section>
+
+      <!-- Craftsmanship & Customization Guide Section -->
+      <section class="guide-section">
+        <h2 class="product-section-heading">Finishes &amp; Options</h2>
+        <p class="product-section-sub">Available card stocks, print finishes, and matching accessories.</p>
+
+        <div class="guides-grid">
+          <div class="guide-box">
+            <h4>✨ Hot Foil Stamping</h4>
+            <p>Gold, rose gold, and silver foil pressed onto heavy cardstock.</p>
+          </div>
+          <div class="guide-box">
+            <h4>📜 Premium Papers</h4>
+            <p>Handmade paper, metallic shimmer boards, and velvet textures.</p>
+          </div>
+          <div class="guide-box">
+            <h4>🔏 Wax Seals</h4>
+            <p>Custom monogram wax seals for envelopes and ribbon closures.</p>
+          </div>
+          <div class="guide-box">
+            <h4>🎁 Matching Gift Bags</h4>
+            <p>Coordinated carry bags and sweet boxes to match your invitations.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Bottom Order CTA Banner -->
+      <div class="product-cta-banner">
+        <h2>Order Your Shadi Cards</h2>
+        <p>Visit our counter or share your ceremony details for proofs and samples.</p>
+        <div class="cta-buttons-wrap">
+          <a href="/#contact" class="btn btn-primary">Contact Us &rarr;</a>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="product-footer">
+    <p>&copy; 2026 <a href="/">Mayank Computer</a> · Bespoke Print &amp; Wedding Stationery</p>
+    <a href="/#contact">Contact Counter</a>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="/products-gallery.js"></script>
+  <script type="module">
+    import { SideRays } from '/side-rays.js';
+    import { DomeGallery, initDomeGallery } from '/dome-gallery.js';
+    import { initThemeToggle } from '/theme-toggle.js';
+    import { initBorderGlow } from '/border-glow.js';
+    import { initScrollReveal } from '/scroll-reveal.js';
+
+    // Reset scroll on reload
+    if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+    window.addEventListener('beforeunload', () => window.scrollTo(0, 0));
+    window.addEventListener('pageshow', () => {
+      if (window.location.hash) history.replaceState(null, null, window.location.pathname + window.location.search);
+      window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+    });
+
+    document.addEventListener('DOMContentLoaded', () => {
+      if (window.location.hash) history.replaceState(null, null, window.location.pathname + window.location.search);
+      window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+      document.documentElement.scrollTop = 0;
+      document.body.scrollTop = 0;
+
+      initThemeToggle();
+      initBorderGlow();
+      initScrollReveal();
+
+      // 1. Initialize React Bits DomeGallery
+      initDomeGallery('#wedding-dome-gallery', {
+        grayscale: false,
+        dragDampening: 2,
+        openedImageWidth: '420px',
+        openedImageHeight: '420px'
+      });
+
+      // 2. SideRays animated background
+      const raysEl = document.getElementById('hero-side-rays');
+      if (raysEl) {
+        new SideRays(raysEl, {
+          speed: 2.5,
+          rayColor1: '#EAB308',
+          rayColor2: '#96c8ff',
+          intensity: 2,
+          spread: 2,
+          origin: 'top-right',
+          tilt: 0,
+          saturation: 1.5,
+          blend: 0.75,
+          falloff: 1.6,
+          opacity: 1.0
+        });
+      }
+    });
+  </script>
+</body>
+</html>
