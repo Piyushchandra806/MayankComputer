@@ -9,7 +9,6 @@ import { initBorderGlow } from './border-glow.js';
 import { initScrollReveal } from './scroll-reveal.js';
 import { initLocationMap } from './location-map.js';
 import { initWarpText } from './warp-text.js';
-import { Sketchbook } from './sketchbook.js';
 
 // Ensure page always starts at top / header upon refresh or navigation
 if ('scrollRestoration' in history) {
@@ -43,32 +42,6 @@ document.addEventListener('DOMContentLoaded', () => {
         speed: 0.85
     });
     const scrollReveal = initScrollReveal();
-
-    // ── Sketchbook portfolio gallery ──────────────────────────────────
-    const sketchbookHost = document.getElementById('sketchbook-host');
-    if (sketchbookHost) {
-        let sbInstance = null;
-        // Lazy-init on first scroll into view so it doesn't block page load
-        const sbObserver = new IntersectionObserver(entries => {
-            if (entries[0].isIntersecting && !sbInstance) {
-                sbInstance = new Sketchbook(sketchbookHost, {
-                    pages: [
-                        { url: 'wedding-card-showcase.jpg',    title: 'Shadi Cards',           caption: 'Royal Wedding Invitations' },
-                        { url: 'letterhead-showcase.jpg',      title: 'Letterheads',           caption: 'Executive Stationery'      },
-                        { url: 'poster-art-showcase.jpg',      title: 'Poster Art',            caption: 'Bold Print & Flex'         },
-                        { url: 'print-production-showcase.jpg',title: 'Print Production',      caption: 'Offset & Digital Press'    },
-                        { url: 'card-front.jpg',               title: 'Visiting Cards (Front)',caption: 'Premium Business Cards'    },
-                        { url: 'card-back.jpg',                title: 'Visiting Cards (Back)', caption: 'Metallic Finishes'         },
-                        { url: 'id-card.jpg',                  title: 'ID Cards',              caption: 'PVC School & Staff Cards'  },
-                        { url: 'hero.jpg',                     title: 'Mayank Computer',       caption: 'Indirapuram, Ghaziabad'    },
-                    ],
-                    assetBase: '',
-                });
-                sbObserver.disconnect();
-            }
-        }, { threshold: 0.1 });
-        sbObserver.observe(sketchbookHost);
-    }
     
     const navbar = document.getElementById('navbar');
     const mobileToggle = document.getElementById('mobile-toggle');
@@ -219,79 +192,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // Initialize AccordionGallery — Our Work Portfolio Section
-    const accordionContainer = document.getElementById('accordion-gallery-container');
-    if (accordionContainer) {
-        new AccordionGallery(accordionContainer, {
-            items: [
-                { 
-                    image: 'https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=800&h=1200&q=85', 
-                    label: 'Bespoke Shadi Cards', 
-                    link: '/products/wedding-cards',
-                    alt: 'Royal Heritage Wedding Invitation Suite'
-                },
-                { 
-                    image: 'https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=800&h=1200&q=85', 
-                    label: 'Vibrant Event Posters', 
-                    link: '/products/posters',
-                    alt: 'High-Impact Flex Banner and Event Poster'
-                },
-                { 
-                    image: 'https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&w=800&h=1200&q=85', 
-                    label: 'Luxury 3D Visiting Cards', 
-                    link: '#products',
-                    alt: 'Gold Foil Embossed Visiting Cards'
-                },
-                { 
-                    image: 'https://images.unsplash.com/photo-1586281380349-632531db7ed4?auto=format&fit=crop&w=800&h=1200&q=85', 
-                    label: 'Smart PVC ID Cards', 
-                    link: '#products',
-                    alt: 'PVC Institutional ID Badge with Branded Lanyard'
-                },
-                { 
-                    image: 'https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=800&h=1200&q=85', 
-                    label: 'Executive Letterheads', 
-                    link: '#products',
-                    alt: 'Executive Bond Letterhead & Envelopes'
-                },
-                { 
-                    image: 'https://images.unsplash.com/photo-1579783900882-c0d3dad7b119?auto=format&fit=crop&w=800&h=1200&q=85', 
-                    label: 'Fine Art & Canvas Prints', 
-                    link: '#products',
-                    alt: 'Museum Grade Fine Art & Gallery Canvas Prints'
-                },
-                { 
-                    image: 'https://images.unsplash.com/photo-1506157786151-b8491531f063?auto=format&fit=crop&w=800&h=1200&q=85', 
-                    label: 'Outdoor Flex Banners', 
-                    link: '/products/posters',
-                    alt: 'Weatherproof Heavy-Duty Flex Hoardings'
-                },
-                { 
-                    image: 'https://images.unsplash.com/photo-1513519245088-0e12902e5a38?auto=format&fit=crop&w=800&h=1200&q=85', 
-                    label: 'Custom Box Packaging', 
-                    link: '#products',
-                    alt: 'Rigid Gift Box and Custom Product Packaging'
-                }
-            ],
-            defaultIndex: 3,
-            accentColor: '#ffffff',
-            overlayColor: '#060010',
-            textColor: '#ffffff',
-            height: 640,
-            gap: 12,
-            radius: 32,
-            expandRatio: 0.42,
-            orientation: 'horizontal',
-            duration: 0.6,
-            ease: 'power3.out',
-            parallax: 0.5,
-            tilt: 8,
-            stagger: 0.06,
-            trigger: 'hover',
-            showLabels: true,
-            grayscale: true
-        });
-    }
+
 
     // Initialize PixelateHover — About Section
     const pixelateContainer = document.getElementById('pixelate-container');
