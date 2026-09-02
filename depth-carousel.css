@@ -1,3 +1,8 @@
+/* =========================================
+   DepthCarousel – CSS
+   Exact React Bits spec implementation
+   ========================================= */
+
 .depth-carousel {
   position: relative;
   width: 100%;
@@ -38,7 +43,6 @@
   transform-origin: center center;
   overflow: hidden;
   background: #0b0d12;
-  border: 1px solid rgba(255, 255, 255, 0.25);
   box-shadow:
     0 30px 60px -20px rgba(0, 0, 0, 0.65),
     0 8px 20px -10px rgba(0, 0, 0, 0.5);
@@ -77,7 +81,6 @@
   border-radius: 999px;
   background: rgba(18, 20, 26, 0.55);
   backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
   color: #fff;
   cursor: pointer;
   transition:
@@ -115,18 +118,15 @@
   border-radius: 999px;
   background: rgba(14, 16, 22, 0.4);
   backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
 }
 
 .depth-carousel__dot {
-  /* Issue 6 — raised from 7×7 to 12×12 for visibility & hit-target */
-  width: 12px;
-  height: 12px;
+  width: 7px;
+  height: 7px;
   padding: 0;
   border: none;
   border-radius: 999px;
-  /* Issue 6 — raised from 0.32 to 0.55 for better contrast on dark bg */
-  background: rgba(255, 255, 255, 0.55);
+  background: rgba(255, 255, 255, 0.32);
   cursor: pointer;
   transition:
     width 0.25s ease,
@@ -134,7 +134,7 @@
 }
 
 .depth-carousel__dot.is-active {
-  width: 28px;
+  width: 20px;
   background: #fff;
 }
 
