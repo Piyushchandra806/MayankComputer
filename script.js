@@ -9,6 +9,7 @@ import { initBorderGlow } from './border-glow.js';
 import { initScrollReveal } from './scroll-reveal.js';
 import { initLocationMap } from './location-map.js';
 import { initWarpText } from './warp-text.js';
+import { Sketchbook } from './sketchbook.js';
 
 // Ensure page always starts at top / header upon refresh or navigation
 if ('scrollRestoration' in history) {
@@ -42,6 +43,32 @@ document.addEventListener('DOMContentLoaded', () => {
         speed: 0.85
     });
     const scrollReveal = initScrollReveal();
+
+    // ── Sketchbook portfolio gallery ──────────────────────────────────
+    const sketchbookHost = document.getElementById('sketchbook-host');
+    if (sketchbookHost) {
+        let sbInstance = null;
+        // Lazy-init on first scroll into view so it doesn't block page load
+        const sbObserver = new IntersectionObserver(entries => {
+            if (entries[0].isIntersecting && !sbInstance) {
+                sbInstance = new Sketchbook(sketchbookHost, {
+                    pages: [
+                        { url: 'wedding-card-showcase.jpg',    title: 'Shadi Cards',           caption: 'Royal Wedding Invitations' },
+                        { url: 'letterhead-showcase.jpg',      title: 'Letterheads',           caption: 'Executive Stationery'      },
+                        { url: 'poster-art-showcase.jpg',      title: 'Poster Art',            caption: 'Bold Print & Flex'         },
+                        { url: 'print-production-showcase.jpg',title: 'Print Production',      caption: 'Offset & Digital Press'    },
+                        { url: 'card-front.jpg',               title: 'Visiting Cards (Front)',caption: 'Premium Business Cards'    },
+                        { url: 'card-back.jpg',                title: 'Visiting Cards (Back)', caption: 'Metallic Finishes'         },
+                        { url: 'id-card.jpg',                  title: 'ID Cards',              caption: 'PVC School & Staff Cards'  },
+                        { url: 'hero.jpg',                     title: 'Mayank Computer',       caption: 'Indirapuram, Ghaziabad'    },
+                    ],
+                    assetBase: '',
+                });
+                sbObserver.disconnect();
+            }
+        }, { threshold: 0.1 });
+        sbObserver.observe(sketchbookHost);
+    }
     
     const navbar = document.getElementById('navbar');
     const mobileToggle = document.getElementById('mobile-toggle');
