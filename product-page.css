@@ -1819,3 +1819,14 @@ body {
     padding: 24px;
   }
 }
+
+/* Mobile: Reduce heavy backdrop filters for performance */
+@media (max-width: 768px) {
+  .product-tabs-nav,
+  .product-image-stack,
+  .product-info-glass,
+  .related-glass-card {
+    backdrop-filter: blur(8px) !important;
+    -webkit-backdrop-filter: blur(8px) !important;
+  }
+}

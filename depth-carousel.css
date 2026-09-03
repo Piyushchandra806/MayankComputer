@@ -147,3 +147,15 @@
     transition: none;
   }
 }
+
+/* Mobile: Reduce heavy backdrop filters for performance */
+@media (max-width: 768px) {
+  .depth-carousel__controls {
+    backdrop-filter: blur(4px) !important;
+    -webkit-backdrop-filter: blur(4px) !important;
+  }
+  .depth-carousel__arrow {
+    backdrop-filter: blur(2px) !important;
+    -webkit-backdrop-filter: blur(2px) !important;
+  }
+}

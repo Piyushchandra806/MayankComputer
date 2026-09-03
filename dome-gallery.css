@@ -280,3 +280,15 @@ main.sphere-main:active {
 .dome-hint-icon {
   font-size: 14px;
 }
+
+/* Mobile: Reduce heavy backdrop filters for performance */
+@media (max-width: 768px) {
+  .overlay--blur {
+    backdrop-filter: blur(4px) !important;
+    -webkit-backdrop-filter: blur(4px) !important;
+  }
+  .dome-hint-badge {
+    backdrop-filter: blur(6px) !important;
+    -webkit-backdrop-filter: blur(6px) !important;
+  }
+}

@@ -28,6 +28,7 @@ export class ScrollStack {
 
     this.ticking = false;
     this.currentIndex = 0;
+    this.isInView = true; // Default to true until observer checks
 
     this._init();
   }
@@ -42,6 +43,17 @@ export class ScrollStack {
     window.addEventListener('scroll', this._onScroll, { passive: true });
     window.addEventListener('resize', this._onResize, { passive: true });
     window.addEventListener('touchmove', this._onScroll, { passive: true });
+
+    // Performance Optimization: Only tick when in viewport
+    if ('IntersectionObserver' in window) {
+      this.observer = new IntersectionObserver((entries) => {
+        this.isInView = entries[0].isIntersecting;
+        if (this.isInView) {
+          this._onScroll(); // Catch up on scroll state when re-entering view
+        }
+      }, { rootMargin: '200px 0px' });
+      this.observer.observe(this.container);
+    }
 
     // Initial render ticks
     this._update();
@@ -62,6 +74,7 @@ export class ScrollStack {
   }
 
   _onScroll() {
+    if (!this.isInView) return; // Pause calculations when out of view
     if (!this.ticking) {
       requestAnimationFrame(() => {
         this._update();
@@ -142,5 +155,6 @@ export class ScrollStack {
     window.removeEventListener('scroll', this._onScroll);
     window.removeEventListener('resize', this._onResize);
     window.removeEventListener('touchmove', this._onScroll);
+    if (this.observer) this.observer.disconnect();
   }
 }

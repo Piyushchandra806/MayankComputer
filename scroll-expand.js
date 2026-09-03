@@ -39,7 +39,9 @@ export class ScrollExpand {
     this.current = 0;
     this.target = 0;
     this.stageH = 0;
+    this.stageH = 0;
     this.running = false;
+    this.isInView = true;
     this.reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
     this._build();
@@ -202,6 +204,10 @@ export class ScrollExpand {
   }
 
   _tick() {
+    if (!this.isInView) {
+      this.running = false;
+      return;
+    }
     const o = this.opts;
     const k = o.smoothing <= 0 ? 1 : 1 - Math.exp(-1 / (60 * o.smoothing));
     this.current += (this.target - this.current) * k;
@@ -223,6 +229,7 @@ export class ScrollExpand {
     const o = this.opts;
 
     this._onScroll = () => {
+      if (!this.isInView) return;
       this.target = this._readProgress();
       if (o.smoothing <= 0 || this.reduceMotion) {
         this.current = this.target;
@@ -250,6 +257,16 @@ export class ScrollExpand {
 
     this._ro = new ResizeObserver(this._onResize);
     this._ro.observe(this.root);
+
+    if ('IntersectionObserver' in window) {
+      this._io = new IntersectionObserver((entries) => {
+        this.isInView = entries[0].isIntersecting;
+        if (this.isInView) {
+          this._onScroll();
+        }
+      }, { rootMargin: '200px 0px' });
+      this._io.observe(this.root);
+    }
   }
 
   destroy() {
@@ -258,6 +275,7 @@ export class ScrollExpand {
     scroller.removeEventListener('scroll', this._onScroll);
     window.removeEventListener('resize', this._onResize);
     if (this._ro) this._ro.disconnect();
+    if (this._io) this._io.disconnect();
     if (this.root.parentNode) this.root.parentNode.removeChild(this.root);
   }
 }

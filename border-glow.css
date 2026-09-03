@@ -89,3 +89,13 @@
   filter: blur(3px);
   opacity: calc(var(--border-glow-opacity, 0) * 0.7);
 }
+
+/* Mobile: Reduce filter blur for performance */
+@media (max-width: 768px) {
+  .border-glow-card > .edge-light {
+    filter: blur(2px) !important;
+  }
+  [data-theme="light"] .border-glow-card > .edge-light {
+    filter: blur(1px) !important;
+  }
+}

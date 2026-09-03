@@ -49,12 +49,19 @@ document.addEventListener('DOMContentLoaded', () => {
     const navLinks = document.getElementById('nav-links');
 
     // Scroll: shrink header into floating pill
+    let isTicking = false;
     const onScroll = () => {
-        const scrollY = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
-        if (scrollY > 30) {
-            navbar.classList.add('scrolled');
-        } else {
-            navbar.classList.remove('scrolled');
+        if (!isTicking) {
+            window.requestAnimationFrame(() => {
+                const scrollY = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+                if (scrollY > 30) {
+                    navbar.classList.add('scrolled');
+                } else {
+                    navbar.classList.remove('scrolled');
+                }
+                isTicking = false;
+            });
+            isTicking = true;
         }
     };
     window.addEventListener('scroll', onScroll, { passive: true });
@@ -197,34 +204,40 @@ document.addEventListener('DOMContentLoaded', () => {
     // Initialize DepthCarousel — Recent Prints Section
     const carouselContainer = document.getElementById('recent-prints-carousel');
     if (carouselContainer) {
-        new DepthCarousel(carouselContainer, {
-            items: [
-                { image: 'https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=800&h=1000&q=85', alt: 'Bespoke Wedding Invitation Suite' },
-                { image: 'https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&w=800&h=1000&q=85', alt: 'Gold Foil Visiting Cards' },
-                { image: 'https://images.unsplash.com/photo-1586281380349-632531db7ed4?auto=format&fit=crop&w=800&h=1000&q=85', alt: 'PVC ID Cards' },
-                { image: 'https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=800&h=1000&q=85', alt: 'Vibrant Event Poster' },
-                { image: 'https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=800&h=1000&q=85', alt: 'Executive Letterhead' },
-                { image: 'https://images.unsplash.com/photo-1579783900882-c0d3dad7b119?auto=format&fit=crop&w=800&h=1000&q=85', alt: 'Fine Art Canvas Print' }
-            ],
-            cardWidth: 300,
-            cardHeight: 400,
-            radius: 20,
-            depth: 220,
-            spread: 90,
-            tilt: 22,
-            tiltDirection: 'right',
-            perspective: 1400,
-            visibleCards: 4,
-            falloff: 0.2,
-            blur: 6,
-            duration: 700,
-            ease: 'power3.out',
-            autoplay: true,
-            autoplayDelay: 3500,
-            loop: true,
-            showControls: true,
-            showIndicators: true
-        });
+        const observer = new IntersectionObserver((entries, obs) => {
+            if (entries[0].isIntersecting) {
+                new DepthCarousel(carouselContainer, {
+                    items: [
+                        { image: 'https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=800&h=1000&q=85', alt: 'Bespoke Wedding Invitation Suite' },
+                        { image: 'https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&w=800&h=1000&q=85', alt: 'Gold Foil Visiting Cards' },
+                        { image: 'https://images.unsplash.com/photo-1586281380349-632531db7ed4?auto=format&fit=crop&w=800&h=1000&q=85', alt: 'PVC ID Cards' },
+                        { image: 'https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=800&h=1000&q=85', alt: 'Vibrant Event Poster' },
+                        { image: 'https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=800&h=1000&q=85', alt: 'Executive Letterhead' },
+                        { image: 'https://images.unsplash.com/photo-1579783900882-c0d3dad7b119?auto=format&fit=crop&w=800&h=1000&q=85', alt: 'Fine Art Canvas Print' }
+                    ],
+                    cardWidth: 300,
+                    cardHeight: 400,
+                    radius: 20,
+                    depth: 220,
+                    spread: 90,
+                    tilt: 22,
+                    tiltDirection: 'right',
+                    perspective: 1400,
+                    visibleCards: 4,
+                    falloff: 0.2,
+                    blur: 6,
+                    duration: 700,
+                    ease: 'power3.out',
+                    autoplay: true,
+                    autoplayDelay: 3500,
+                    loop: true,
+                    showControls: true,
+                    showIndicators: true
+                });
+                obs.disconnect();
+            }
+        }, { rootMargin: '400px 0px' });
+        observer.observe(carouselContainer);
     }
 
     // Initialize PixelateHover — About Section
@@ -394,12 +407,18 @@ document.addEventListener('DOMContentLoaded', () => {
     let lanyardInstance = null;
 
     if (lanyardContainer) {
-        lanyardInstance = new Lanyard(lanyardContainer, {
-            image: 'id-card.jpg',
-            strapColor: '#0d0d12',
-            gravity: 0.65,
-            damping: 0.965
-        });
+        const observer = new IntersectionObserver((entries, obs) => {
+            if (entries[0].isIntersecting) {
+                lanyardInstance = new Lanyard(lanyardContainer, {
+                    image: 'id-card.jpg',
+                    strapColor: '#0d0d12',
+                    gravity: 0.65,
+                    damping: 0.965
+                });
+                obs.disconnect();
+            }
+        }, { rootMargin: '300px 0px' });
+        observer.observe(lanyardContainer);
     }
 
     // Tab buttons click

@@ -309,10 +309,23 @@ export class WarpText {
     this.startTime = performance.now();
     this.lastTime = performance.now();
     this.reduceMotion = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches ?? false;
+    this.isInView = true;
 
     this.setupListeners();
     this.resize();
-    this.startLoop();
+
+    if ('IntersectionObserver' in window) {
+      this._io = new IntersectionObserver((entries) => {
+        this.isInView = entries[0].isIntersecting;
+        if (this.isInView && !this.raf) {
+          this.lastTime = performance.now();
+          this.startLoop();
+        }
+      }, { rootMargin: '200px 0px' });
+      this._io.observe(this.container);
+    } else {
+      this.startLoop();
+    }
   }
 
   rasterize() {
@@ -411,7 +424,12 @@ export class WarpText {
   }
 
   startLoop() {
+    if (this.raf) return;
     const loop = (now) => {
+      if (!this.isInView) {
+        this.raf = null;
+        return;
+      }
       const dt = Math.min((now - this.lastTime) * 0.001, 0.1);
       this.lastTime = now;
       const elapsed = (now - this.startTime) * 0.001;
@@ -449,6 +467,7 @@ export class WarpText {
   destroy() {
     if (this.raf) cancelAnimationFrame(this.raf);
     if (this.ro) this.ro.disconnect();
+    if (this._io) this._io.disconnect();
   }
 }
 

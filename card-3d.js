@@ -12,9 +12,27 @@ class Card3D {
     this.targetX = 0;
     this.targetY = 0;
     this.currentX = 0;
+    this.currentX = 0;
     this.currentY = 0;
+    this.isInView = true;
 
     this._bind();
+    this._observe();
+  }
+
+  _observe() {
+    if ('IntersectionObserver' in window) {
+      this.observer = new IntersectionObserver((entries) => {
+        this.isInView = entries[0].isIntersecting;
+        if (!this.isInView && this.raf) {
+          cancelAnimationFrame(this.raf);
+          this.raf = null;
+        } else if (this.isInView && !this.raf && (Math.abs(this.targetX - this.currentX) > 0.02 || Math.abs(this.targetY - this.currentY) > 0.02)) {
+          this._tick();
+        }
+      }, { rootMargin: '100px 0px' });
+      this.observer.observe(this.scene);
+    }
   }
 
   _bind() {
@@ -55,6 +73,7 @@ class Card3D {
   }
 
   _tick() {
+    if (!this.isInView) return;
     const k = 0.12;  // smoothing
     this.currentX += (this.targetX - this.currentX) * k;
     this.currentY += (this.targetY - this.currentY) * k;
@@ -79,16 +98,6 @@ class Card3D {
 // Init all card scenes on this page
 document.addEventListener('DOMContentLoaded', () => {
   document.querySelectorAll('.card-scene').forEach(scene => new Card3D(scene));
-
-  // Shared navbar scroll logic
-  const navbar = document.getElementById('navbar');
-  if (navbar) {
-    const onScroll = () => {
-      navbar.classList.toggle('scrolled', window.scrollY > 40);
-    };
-    window.addEventListener('scroll', onScroll, { passive: true });
-    onScroll();
-  }
 
   // Mobile menu toggle
   const toggle = document.getElementById('mobile-toggle');

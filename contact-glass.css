@@ -1140,3 +1140,13 @@
     max-width: 340px;
   }
 }
+
+/* Mobile: Reduce heavy backdrop filters for performance */
+@media (max-width: 768px) {
+  .contact-info-panel,
+  .contact-form-glass-wrap,
+  .wa-chat-popup {
+    backdrop-filter: blur(8px) !important;
+    -webkit-backdrop-filter: blur(8px) !important;
+  }
+}

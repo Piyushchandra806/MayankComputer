@@ -50,10 +50,35 @@
   filter: blur(4px) !important;
 }
 
-/* Mobile: reduce horizontal movement to prevent overflow */
+/* Mobile: reduce horizontal movement and blur to prevent overflow and save GPU */
 @media (max-width: 768px) {
-  .reveal-init[data-reveal="left"]  { transform: translate3d(-28px, 0, 0) scale(1) !important; }
-  .reveal-init[data-reveal="right"] { transform: translate3d(28px, 0, 0) scale(1) !important; }
+  .reveal-init,
+  [class*="-grid"] > .reveal-init,
+  .reveal-init.service-card,
+  .reveal-init.feature-card,
+  .reveal-init.design-item,
+  .reveal-init.banner-size-card,
+  .reveal-init.guide-box,
+  .reveal-init.about-stat,
+  .reveal-init.border-glow-card {
+    filter: blur(2px) !important;
+  }
+  .reveal-init.section-header,
+  .reveal-init.product-section-header,
+  .reveal-init[data-reveal="up"] {
+    filter: blur(2px) !important;
+  }
+  .reveal-init[data-reveal="left"]  { 
+    transform: translate3d(-24px, 0, 0) scale(1) !important; 
+    filter: blur(2px) !important;
+  }
+  .reveal-init[data-reveal="right"] { 
+    transform: translate3d(24px, 0, 0) scale(1) !important; 
+    filter: blur(2px) !important;
+  }
+  .reveal-init[data-reveal="fade"] {
+    filter: blur(2px) !important;
+  }
 }
 
 
