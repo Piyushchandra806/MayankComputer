@@ -206,6 +206,7 @@ export class ScrollExpand {
   _tick() {
     if (!this.isInView) {
       this.running = false;
+      this.raf = 0;
       return;
     }
     const o = this.opts;

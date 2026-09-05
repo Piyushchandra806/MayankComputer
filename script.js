@@ -1,6 +1,5 @@
 import { LightRays } from './light-rays.js';
 import { ScrollExpand } from './scroll-expand.js';
-import { AccordionGallery } from './accordion-gallery.js';
 import { DepthCarousel } from './depth-carousel.js';
 import { PixelateHover } from './pixelate-hover.js';
 import { CountUp } from './count-up.js';
